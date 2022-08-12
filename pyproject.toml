@@ -1,9 +1,29 @@
 [tool.poetry]
 name = "django-permission2"
-version = "2.0.0-beta.4"
+version = "2.0.0-beta.5"
 description = "A simple permission system which enable logical permission systems in Django"
 authors = ["Malte Gerth <mail@malte-gerth.de>"]
 license = "MIT"
+readme = "README.rst"
+homepage = "https://django-permission2.readthedocs.io/en/latest/"
+documentation = "https://django-permission2.readthedocs.io/en/latest/"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+keywords = ["django","object","logical","permission"]
 packages = [
     { include = "src/" }
 ]
