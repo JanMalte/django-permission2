@@ -2,14 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    "dependencyDashboard": true,
-    "separateMultipleMajor": true,
-    "major": {
-      "dependencyDashboardApproval": true
-    },
-    "rebaseWhen": "conflicted",
-    "pre-commit": {
-      "enabled": true
-    }
-  ]
+  ],
+  "dependencyDashboard": true,
+  "separateMultipleMajor": true,
+  "major": {
+    "dependencyDashboardApproval": true
+  },
+  "rebaseWhen": "conflicted",
+  "pre-commit": {
+    "enabled": true
+  }
 }
