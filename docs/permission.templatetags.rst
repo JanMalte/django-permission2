@@ -4,14 +4,6 @@ permission.templatetags package
 Submodules
 ----------
 
-permission.templatetags.patch module
-------------------------------------
-
-.. automodule:: permission.templatetags.patch
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 permission.templatetags.permissionif module
 -------------------------------------------
 
