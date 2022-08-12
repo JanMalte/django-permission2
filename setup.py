@@ -1,30 +1,20 @@
 # coding=utf-8
+from pathlib import Path
+
 from setuptools import setup, find_packages
 
 NAME = 'django-permission2'
-VERSION = '2.0.0b1'
 
-
-def read(filename):
-    import os
-    BASE_DIR = os.path.dirname(__file__)
-    filename = os.path.join(BASE_DIR, filename)
-    with open(filename, 'r') as fi:
-        return fi.read()
-
-
-def readlist(filename):
-    rows = read(filename).split("\n")
-    rows = [x.strip() for x in rows if x.strip()]
-    return rows
+BASE_DIR = Path(__file__).parent
+README = (BASE_DIR / "README.rst").read_text()
 
 
 setup(
     name=NAME,
-    version=VERSION,
     description=('A simple permission system which enable logical permission'
                  'systems to complex permissions'),
-    long_description=read('README.rst'),
+    long_description=README,
+    long_description_content_type='text/x-rst',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
@@ -56,6 +46,5 @@ setup(
              'requirements-test.txt',
              'requirements-docs.txt'],
     },
-    zip_safe=True,
-    install_requires=readlist('requirements.txt'),
+    install_requires=[r for r in (BASE_DIR / "requirements.txt").read_text().split("\n") if r.strip()],
 )
