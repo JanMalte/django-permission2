@@ -20,10 +20,13 @@ from importlib.metadata import version
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 # sys.path.insert(0, os.path.abspath('.'))
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, "src"))
 sys.path.insert(0, os.path.join(BASE_DIR, "tests"))
 os.environ["DJANGO_SETTINGS_MODULE"] = "settings"
+import django  # NOQA: E402
 
+django.setup()
 
 # -- General configuration -----------------------------------------------------
 
