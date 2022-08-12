@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'permission.tests',
 ]
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -42,11 +42,18 @@ ROOT_URLCONF = 'tests.urls'
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {},
-    },
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ],
+            "builtins": ["permission.templatetags.permissionif"],
+        },
+    }
 ]
 
 
@@ -59,6 +66,7 @@ DATABASES = {
         'NAME': ':memory:',
     }
 }
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -83,16 +91,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Add permissionif tag to builtins
-if VERSION >= (1, 9):
-    TEMPLATES[0]['OPTIONS']['builtins'] = [
-        'permission.templatetags.permissionif'
-    ]
-
-# Add Django 1.11 requirements
-if VERSION >= (1, 11):
-    TEMPLATES[0]['OPTIONS']['context_processors'] = [
-        'django.contrib.auth.context_processors.auth',
-    ]

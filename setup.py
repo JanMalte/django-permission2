@@ -1,8 +1,8 @@
 # coding=utf-8
 from setuptools import setup, find_packages
 
-NAME = 'django-permission'
-VERSION = '1.0.4'
+NAME = 'django-permission2'
+VERSION = '2.0.0-beta'
 
 
 def read(filename):
@@ -22,7 +22,7 @@ def readlist(filename):
 setup(
     name=NAME,
     version=VERSION,
-    description=('A enhanced permission system which enable logical permission'
+    description=('A simple permission system which enable logical permission'
                  'systems to complex permissions'),
     long_description=read('README.rst'),
     classifiers=[
@@ -32,23 +32,20 @@ setup(
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
         'Topic :: Software Development :: Libraries :: Python Modules',
     ],
     keywords='django object logical permission auth authentication',
-    author='Alisue',
-    author_email='lambdalisue@hashnote.net',
-    url='https://github.com/lambdalisue/%s' % NAME,
-    download_url='https://github.com/lambdalisue/%s/tarball/master' % NAME,
+    author='Malte Gerth',
+    author_email='mail@malte-gerth.de',
+    url='https://github.com/janmalte/%s' % NAME,
+    download_url='https://github.com/janmalte/%s/tarball/master' % NAME,
     license='MIT',
     packages=find_packages('src'),
     package_dir={'': 'src'},

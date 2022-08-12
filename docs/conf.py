@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# django-permission documentation build configuration file, created by
+# django-permission2 documentation build configuration file, created by
 # sphinx-quickstart on Tue Jan 14 03:12:35 2014.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -49,8 +49,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'django-permission'
-copyright = u'2014, Alisue <lambdalisue@hashnote.net>'
+project = u'django-permission2'
+copyright = u'2022, Malte Gerth <mail@malte-gerth.de>'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -174,7 +174,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'django-permissiondoc'
+htmlhelp_basename = 'django-permission2doc'
 
 
 # Use Read The Docs theme
@@ -201,8 +201,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'django-permission.tex', u'django-permission Documentation',
-   u'Alisue \\textless{}lambdalisue@hashnote.net\\textgreater{}', 'manual'),
+  ('index', 'django-permission2.tex', u'django-permission2 Documentation',
+   u'Malte Gerth \\textless{}mail@malte-gerth.de\\textgreater{}', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -231,8 +231,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'django-permission', u'django-permission Documentation',
-     [u'Alisue <lambdalisue@hashnote.net>'], 1)
+    ('index', 'django-permission2', u'django-permission2 Documentation',
+     [u'Malte Gerth <mail@malte-gerth.de>'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -245,8 +245,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'django-permission', u'django-permission Documentation',
-   u'Alisue <lambdalisue@hashnote.net>', 'django-permission', 'One line description of project.',
+  ('index', 'django-permission2', u'django-permission2 Documentation',
+   u'Malte Gerth <mail@malte-gerth.de>', 'django-permission2', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -263,10 +263,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'django-permission'
-epub_author = u'Alisue <lambdalisue@hashnote.net>'
-epub_publisher = u'Alisue <lambdalisue@hashnote.net>'
-epub_copyright = u'2014, Alisue <lambdalisue@hashnote.net>'
+epub_title = u'django-permission2'
+epub_author = u'Malte Gerth <mail@malte-gerth.de>'
+epub_publisher = u'Malte Gerth <mail@malte-gerth.de>'
+epub_copyright = u'2022, Malte Gerth <mail@malte-gerth.de>'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

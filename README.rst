@@ -1,39 +1,29 @@
-django-permission
+django-permission2
 ==========================
-.. image:: https://img.shields.io/travis/lambdalisue/django-permission/master.svg?style=flat-square
-    :target: http://travis-ci.org/lambdalisue/django-permission
-    :alt: Build status
-.. image:: https://img.shields.io/coveralls/lambdalisue/django-permission/master.svg?style=flat-square
-    :target: https://coveralls.io/github/lambdalisue/django-permission?branch=master 
-    :alt: Coverage
-.. image:: https://img.shields.io/requires/github/lambdalisue/django-permission/master.svg?style=flat-square
-    :target: https://requires.io/github/lambdalisue/django-permission/requirements/?branch=master
-    :alt: Requirements Status
-.. image:: https://img.shields.io/scrutinizer/g/lambdalisue/django-permission/master.svg?style=flat-square
-    :target: https://scrutinizer-ci.com/g/lambdalisue/django-permission/inspections
-    :alt: Inspection
-.. image:: https://img.shields.io/pypi/v/django-permission.svg?style=flat-square
-    :target: https://github.com/lambdalisue/django-permission/blob/master/setup.py
+.. image:: https://img.shields.io/pypi/v/django-permission2.svg?style=flat-square
+    :target: https://github.com/janmalte/django-permission2/blob/master/setup.py
     :alt: Version
-.. image:: https://img.shields.io/pypi/l/django-permission.svg?style=flat-square
-    :target: https://github.com/lambdalisue/django-permission/blob/master/LICENSE
+.. image:: https://img.shields.io/pypi/l/django-permission2.svg?style=flat-square
+    :target: https://github.com/janmalte/django-permission2/blob/master/LICENSE
     :alt: License
-.. image:: https://img.shields.io/pypi/format/django-permission.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/django-permission/
+.. image:: https://img.shields.io/pypi/format/django-permission2.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/django-permission2/
     :alt: Format
-.. image:: https://img.shields.io/pypi/pyversions/django-permission.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/django-permission/
+.. image:: https://img.shields.io/pypi/pyversions/django-permission2.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/django-permission2/
     :alt: Supported python versions
-.. image:: https://img.shields.io/pypi/status/django-permission.svg?style=flat-square
-    :target: https://pypi.python.org/pypi/django-permission/
+.. image:: https://img.shields.io/pypi/status/django-permission2.svg?style=flat-square
+    :target: https://pypi.python.org/pypi/django-permission2/
     :alt: Status
 
 Author
+    Malte Gerth <mail@malte-gerth.de>
+Original Author
     Alisue <lambdalisue@hashnote.net>
 Supported python versions
-    Python 2.7, 3.3, 3.4, 3.5, 3.6
+    Python 3.7, 3.8, 3.9
 Supported django versions
-    Django 1.8 - 1.11b
+    Django 2.2, 3.2, 4.0, 4.1
 
 An enhanced permission library which enables a *logic-based permission system*
 to handle complex permissions in Django.
@@ -41,13 +31,13 @@ to handle complex permissions in Django.
 
 Documentation
 -------------
-http://django-permission.readthedocs.org/en/latest/
+http://django-permission2.readthedocs.org/en/latest/
 
 Installation
 ------------
 Use pip_ like::
 
-    $ pip install django-permission
+    $ pip install django-permission2
 
 .. _pip:  https://pypi.python.org/pypi/pip
 
@@ -57,8 +47,8 @@ Usage
 
 The following might help you to understand as well.
 
-- Basic strategy or so on, `Issue #28 <https://github.com/lambdalisue/django-permission/issues/28>`_
-- Advanced usage and examples, `Issue #26 <https://github.com/lambdalisue/django-permission/issues/26>`_
+- Basic strategy or so on, `Issue #28 <https://github.com/jazzband/django-permission/issues/28>`_
+- Advanced usage and examples, `Issue #26 <https://github.com/jazzband/django-permission/issues/26>`_
 
 Configuration
 ~~~~~~~~~~~~~
@@ -85,8 +75,8 @@ Configuration
 
 Autodiscovery
 ~~~~~~~~~~~~~
-Like django's admin package, django-permission automatically discovers the ``perms.py`` in your application directory **by running ``permission.autodiscover()``**.
-Additionally, if the ``perms.py`` module has a ``PERMISSION_LOGICS`` variable, django-permission automatically run the following functions to apply the permission logics.
+Like django's admin package, django-permission2 automatically discovers the ``perms.py`` in your application directory **by running ``permission.autodiscover()``**.
+Additionally, if the ``perms.py`` module has a ``PERMISSION_LOGICS`` variable, django-permission2 automatically run the following functions to apply the permission logics.
 
 .. code:: python
 
@@ -162,8 +152,7 @@ to the ``Article`` model like
 
 
 .. note::
-    From django-permission version 0.8.0, you can specify related object with
-    `field__name` attribute like
+    You can specify related object with `field__name` attribute like
     `django queryset lookup <https://docs.djangoproject.com/en/1.10/topics/db/queries/#field-lookups>`_.
     See the working example below:
 
@@ -272,7 +261,7 @@ Now the following codes will work as expected:
             instance.user_permissions.add(perm_to_permission(permission))
 
 
-See http://django-permission.readthedocs.org/en/latest/_modules/permission/logics/author.html#AuthorPermissionLogic
+See http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/author.html#AuthorPermissionLogic
 to learn how this logic works.
 
 Now, assume you add ``collaborators`` attribute to store collaborators
@@ -313,8 +302,7 @@ to the ``Article`` model as follows
 
 
 .. note::
-    From django-permission version 0.8.0, you can specify related object with
-    `field_name` attribute like
+    You can specify related object with `field_name` attribute like
     `django queryset lookup <https://docs.djangoproject.com/en/1.10/topics/db/queries/#field-lookups>`_.
     See the working example below:
 
@@ -384,11 +372,11 @@ Now the following codes will work as expected:
     assert user2.has_perm('permission.delete_article', art1) == False
 
 
-See http://django-permission.readthedocs.org/en/latest/_modules/permission/logics/collaborators.html#CollaboratorsPermissionLogic
+See http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/collaborators.html#CollaboratorsPermissionLogic
 to learn how this logic works.
 
-There are `StaffPermissionLogic <http://django-permission.readthedocs.org/en/latest/_modules/permission/logics/staff.html#StaffPermissionLogic>`_
-and `GroupInPermissionLogic <http://django-permission.readthedocs.org/en/latest/_modules/permission/logics/groupin.html#GroupInPermissionLogic>`_ 
+There are `StaffPermissionLogic <http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/staff.html#StaffPermissionLogic>`_
+and `GroupInPermissionLogic <http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/groupin.html#GroupInPermissionLogic>`_
 for ``is_staff`` or ``group`` based permission logic as well.
 
 Customize permission logic
@@ -427,7 +415,7 @@ anyway use ``user.has_perm`` in that case).
 
 Override the builtin ``if`` template tag
 ----------------------------------------
-django-permission overrides the builtin ``if`` tag, adding two operators to handle
+django-permission2 overrides the builtin ``if`` tag, adding two operators to handle
 permissions in templates.
 You can write a permission test by using ``has`` keyword, and a target object with ``of`` as below.
 
@@ -448,7 +436,7 @@ You can write a permission test by using ``has`` keyword, and a target object wi
     {% endpermission %}
 
 .. note::
-    From Django 1.9, users require to add `'permission.templatetags.permissionif'` to `'builtins'` option manually.
+    You have to add `'permission.templatetags.permissionif'` to `'builtins'` option manually.
     See
     - https://docs.djangoproject.com/en/1.9/releases/1.9/#django-template-base-add-to-builtins-is-removed
     - https://docs.djangoproject.com/en/1.9/topics/templates/#module-django.template.backends.django
@@ -469,7 +457,7 @@ License
 -------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2015 Alisue, hashnote.net
+Copyright (c) 2022 Malte Gerth <mail@malte-gerth.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

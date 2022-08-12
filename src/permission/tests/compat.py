@@ -29,14 +29,3 @@ class TestRunner(TestRunnerBase):
     def teardown_test_environment(self, **kwargs):
         super(TestRunner, self).teardown_test_environment(**kwargs)
         settings.TESTING = False
-
-try:
-    from django.utils.encoding import python_2_unicode_compatible
-except ImportError:
-    # python_2_unicode_compatible is ported from Django 1.5
-    def python_2_unicode_compatible(cls):
-        # Note:
-        #   This project does not use any unicode literal so use __str__
-        #   as __unicode__ works fine.
-        cls.__unicode__ = cls.__str__
-        return cls

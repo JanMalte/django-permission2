@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-django-permission application configure
+django-permission2 application configure
 """
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured

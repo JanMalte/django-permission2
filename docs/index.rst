@@ -1,5 +1,5 @@
 *********************************************
-Welcome to django-permission's documentation!
+Welcome to django-permission2's documentation!
 *********************************************
 
 .. include:: ../README.rst

@@ -31,9 +31,9 @@ class PermissionUtilsFieldLookupTestCase(TestCase):
 
     def test_field_lookup_editors(self):
         field_value = field_lookup(self.model, 'editors')
-        field_value = (x for x in field_value.iterator())
-        expected_value = list(map(repr, (self.editor1, self.editor2)))
-        self.assertQuerysetEqual(field_value, expected_value)
+        field_value = list(x for x in field_value.iterator())
+        expected_value = list([self.editor1, self.editor2])
+        self.assertEqual(field_value, expected_value)
 
     def test_field_lookup_editors_username(self):
         field_value = list(field_lookup(self.model, 'editors__username'))
@@ -52,9 +52,9 @@ class PermissionUtilsFieldLookupTestCase(TestCase):
 
     def test_field_lookup_single_bridge_editors(self):
         field_value = field_lookup(self.model, 'single_bridge__editors')
-        field_value = (x for x in field_value.iterator())
-        expected_value = list(map(repr, self.bridge1.editors.iterator()))
-        self.assertQuerysetEqual(field_value, expected_value)
+        field_value = list(x for x in field_value.iterator())
+        expected_value = list(self.bridge1.editors.iterator())
+        self.assertEqual(field_value, expected_value)
 
     def test_field_lookup_single_bridge_editors_username(self):
         field_value = list(field_lookup(self.model,
@@ -63,10 +63,10 @@ class PermissionUtilsFieldLookupTestCase(TestCase):
         self.assertEqual(field_value, expected_value)
 
     def test_field_lookup_multiple_bridge_author(self):
-        field_value = field_lookup(self.model, 'multiple_bridge__author')
-        expected_value = list(map(repr, (self.bridge2.author,
-                                         self.bridge3.author)))
-        self.assertQuerysetEqual(field_value, expected_value)
+        field_value = list(field_lookup(self.model, 'multiple_bridge__author'))
+        expected_value = list([self.bridge2.author,
+                                         self.bridge3.author])
+        self.assertEqual(field_value, expected_value)
 
     def test_field_lookup_multiple_bridge_author_username(self):
         field_value = field_lookup(self.model,

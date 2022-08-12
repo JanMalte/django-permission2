@@ -1,6 +1,6 @@
 """A module to lookup field of object."""
 from __future__ import unicode_literals
-from collections import Iterable
+from collections.abc import Iterable
 
 
 def field_lookup(obj, field_path):

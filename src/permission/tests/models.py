@@ -1,23 +1,20 @@
-from __future__ import unicode_literals
 from django.db import models
 from django.conf import settings
-from django.utils.encoding import python_2_unicode_compatible
 
 
 AUTH_USER = getattr(settings, 'AUTH_USER_MODEL', 'auth.User')
 
 
-@python_2_unicode_compatible
 class Article(models.Model):
     title = models.CharField('title', max_length=200)
     content = models.TextField('content')
 
     author = models.ForeignKey(
         AUTH_USER, null=True,
-        related_name='permission_test_articles_author')
+        related_name='permission_test_articles_author', on_delete=models.CASCADE)
     editor = models.ForeignKey(
         AUTH_USER, null=True,
-        related_name='permission_test_articles_editor')
+        related_name='permission_test_articles_editor', on_delete=models.CASCADE)
     authors = models.ManyToManyField(
         AUTH_USER, related_name='permission_test_articles_authors')
     editors = models.ManyToManyField(
@@ -25,7 +22,7 @@ class Article(models.Model):
 
     single_bridge = models.ForeignKey(
         'permission.Bridge', null=True,
-        related_name='permission_test_single_bridge')
+        related_name='permission_test_single_bridge', on_delete=models.CASCADE)
     multiple_bridge = models.ManyToManyField(
         'permission.Bridge',
         related_name='permission_test_multiple_bridge')
@@ -41,7 +38,7 @@ class Article(models.Model):
 
 class Bridge(models.Model):
     author = models.ForeignKey(
-        AUTH_USER, null=True, related_name='permission_test_bridge_author')
+        AUTH_USER, null=True, related_name='permission_test_bridge_author', on_delete=models.CASCADE)
     editors = models.ManyToManyField(
         AUTH_USER, related_name='permission_test_bridge_editors')
 

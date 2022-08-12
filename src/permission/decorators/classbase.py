@@ -3,7 +3,6 @@
 permission_required decorator for generic classbased view from django 1.3
 """
 from functools import wraps
-from django.utils.decorators import available_attrs
 from django.core.exceptions import PermissionDenied
 from permission.decorators.utils import redirect_to_login
 
@@ -39,7 +38,7 @@ def permission_required(perm, queryset=None,
     """
     def wrapper(cls):
         def view_wrapper(view_func):
-            @wraps(view_func, assigned=available_attrs(view_func))
+            @wraps(view_func)
             def inner(self, request, *args, **kwargs):
                 # get object
                 obj = get_object_from_classbased_instance(

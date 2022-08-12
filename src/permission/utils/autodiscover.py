@@ -1,7 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
 from django.apps import apps
-from permission.compat import six
 
 
 def autodiscover(module_name=None):
@@ -66,7 +65,7 @@ def discover(app, module_name=None):
         # apply permission logics automatically
         permission_logic_set = getattr(m, variable_name)
         for model, permission_logic in permission_logic_set:
-            if isinstance(model, six.string_types):
+            if isinstance(model, str):
                 # convert model string to model instance
                 model = get_model(*model.split('.', 1))
             add_permission_logic(model, permission_logic)

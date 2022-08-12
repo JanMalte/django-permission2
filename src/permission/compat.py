@@ -70,9 +70,3 @@ if sys.version_info >= (3, 0):
 else:
     def isstr(x):
         return isinstance(x, basestring)
-
-try:
-    from django.util import six
-except ImportError:
-    # Django 1.2/1.3 does not have six
-    import six

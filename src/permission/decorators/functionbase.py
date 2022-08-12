@@ -5,7 +5,6 @@ permission_required decorator for generic function view
 import copy
 from functools import wraps
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import available_attrs
 from django.core.exceptions import PermissionDenied
 from permission.decorators.utils import redirect_to_login
 
@@ -38,7 +37,7 @@ def permission_required(perm, queryset=None,
     ...     pass
     """
     def wrapper(view_func):
-        @wraps(view_func, assigned=available_attrs(view_func))
+        @wraps(view_func)
         def inner(request, *args, **kwargs):
             _kwargs = copy.copy(kwargs)
             # overwrite queryset if specified
