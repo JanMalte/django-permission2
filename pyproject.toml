@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-permission2"
-version = "2.0.0-beta.7"
+version = "2.0.0"
 description = "A simple permission system which enable logical permission systems in Django"
 authors = ["Malte Gerth <mail@malte-gerth.de>"]
 license = "MIT"
