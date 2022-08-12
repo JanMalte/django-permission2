@@ -5,8 +5,9 @@ description = "A simple permission system which enable logical permission system
 authors = ["Malte Gerth <mail@malte-gerth.de>"]
 license = "MIT"
 readme = "README.rst"
-homepage = "https://django-permission2.readthedocs.io/en/latest/"
-documentation = "https://django-permission2.readthedocs.io/en/latest/"
+homepage = "https://django-permission2.readthedocs.io/"
+repository = "https://github.com/JanMalte/django-permission2/"
+documentation = "https://django-permission2.readthedocs.io/"
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Environment :: Web Environment",
