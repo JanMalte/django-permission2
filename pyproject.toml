@@ -48,7 +48,6 @@ isort = "^5.10.1"
 docs = ["Sphinx", "sphinx-rtd-theme"]
 
 [tool.poetry.urls]
-Source = "https://github.com/JanMalte/django-permission2/"
 Tracker = "https://github.com/JanMalte/django-permission2/issues/"
 
 [build-system]
