@@ -1,5 +1,5 @@
 # coding=utf-8
-import collections
+from collections.abc import Callable
 
 from permission.utils.permissions import get_app_perms, get_model_perms
 
@@ -97,11 +97,11 @@ class PermissionHandler(object):
             A set instance of `app_label.codename` formatted permission strings
         """
         if not hasattr(self, "_perms_cache"):
-            if self.includes and isinstance(self.includes, collections.Callable):
+            if self.includes and isinstance(self.includes, Callable):
                 includes = self.includes(self)
             else:
                 includes = self.includes or []
-            if self.excludes and isinstance(self.excludes, collections.Callable):
+            if self.excludes and isinstance(self.excludes, Callable):
                 excludes = self.excludes(self)
             else:
                 excludes = self.excludes or []

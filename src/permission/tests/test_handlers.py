@@ -32,7 +32,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
     def test__get_app_perms_with_app_label(self):
         instance = self.handler("permission")
         perms = instance._get_app_perms()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -51,7 +51,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
     def test__get_app_perms_with_model(self):
         instance = self.handler(Article)
         perms = instance._get_app_perms()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -70,7 +70,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
     def test__get_model_perms(self):
         instance = self.handler(Article)
         perms = instance._get_model_perms()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -85,7 +85,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
     def test_get_supported_permissions(self):
         instance = self.handler(Article)
         perms = instance.get_supported_permissions()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -104,7 +104,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
             "permission.change_article",
         ]
         perms = instance.get_supported_permissions()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -125,7 +125,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
             "permission.change_article",
         ]
         perms = instance.get_supported_permissions()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -140,7 +140,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
             "permission.add_article",
         ]
         perms = instance.get_supported_permissions()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -159,7 +159,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
         instance.get_supported_permissions()
         instance.excludes = []
         perms = instance.get_supported_permissions()
-        self.assertEquals(
+        self.assertEqual(
             perms,
             set(
                 [
@@ -174,7 +174,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
     def test_get_supported_app_labels(self):
         instance = self.handler(Article)
         app_labels = instance.get_supported_app_labels()
-        self.assertEquals(
+        self.assertEqual(
             app_labels,
             set(
                 [
@@ -190,7 +190,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
             "permission.change_article",
         ]
         app_labels = instance.get_supported_app_labels()
-        self.assertEquals(
+        self.assertEqual(
             app_labels,
             set(
                 [
@@ -210,7 +210,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
             "permission.change_article",
         ]
         app_labels = instance.get_supported_app_labels()
-        self.assertEquals(
+        self.assertEqual(
             app_labels,
             set(
                 [
@@ -225,7 +225,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
             "permission.add_article",
         ]
         app_labels = instance.get_supported_app_labels()
-        self.assertEquals(
+        self.assertEqual(
             app_labels,
             set(
                 [
@@ -242,7 +242,7 @@ class PermissionPermissionHandlersTestCase(TestCase):
         instance.get_supported_app_labels()
         instance.excludes = []
         app_labels = instance.get_supported_app_labels()
-        self.assertEquals(
+        self.assertEqual(
             app_labels,
             set(
                 [
