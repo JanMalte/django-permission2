@@ -25,6 +25,7 @@ To get the coverage report use the following commands
 
     poetry install --extras docs
     cd docs/
+    make clean
     make html
 
 ## Build package
