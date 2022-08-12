@@ -15,6 +15,9 @@ django-permission2
 .. image:: https://img.shields.io/pypi/status/django-permission2.svg?style=flat-square
     :target: https://pypi.python.org/pypi/django-permission2/
     :alt: Status
+.. image:: https://readthedocs.org/projects/django-permission2/badge/?version=latest
+    :target: https://django-permission2.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 Author
     Malte Gerth <mail@malte-gerth.de>
