@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "django-permission2"
-version = "2.0.0-beta.5"
+version = "2.0.0-beta.6"
 description = "A simple permission system which enable logical permission systems in Django"
 authors = ["Malte Gerth <mail@malte-gerth.de>"]
 license = "MIT"
@@ -25,7 +25,7 @@ classifiers = [
 ]
 keywords = ["django","object","logical","permission"]
 packages = [
-    { include = "src/" }
+    { include = "permission", from = "src" },
 ]
 
 [tool.poetry.dependencies]
