@@ -54,3 +54,9 @@ Tracker = "https://github.com/JanMalte/django-permission2/issues/"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[flake8]
+max-line-length = 102
+
+[isort]
+profile = "black"
