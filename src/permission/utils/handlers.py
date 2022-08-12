@@ -3,17 +3,20 @@
 A utilities of permission handler
 """
 from __future__ import unicode_literals
+
 import inspect
+
 from django.core.exceptions import ImproperlyConfigured
+
+from permission.compat import import_string, isstr
 from permission.conf import settings
-from permission.compat import isstr
-from permission.compat import import_string
 
 
 class PermissionHandlerRegistry(object):
     """
     A registry class of permission handler
     """
+
     def __init__(self):
         self._registry = {}
 
@@ -37,25 +40,29 @@ class PermissionHandlerRegistry(object):
             The model cannot have more than one handler.
         """
         from permission.handlers import PermissionHandler
+
         if model._meta.abstract:
             raise ImproperlyConfigured(
-                    'The model %s is abstract, so it cannot be registered '
-                    'with permission.' % model)
+                "The model %s is abstract, so it cannot be registered "
+                "with permission." % model
+            )
         if model in self._registry:
-            raise KeyError("A permission handler class is already "
-                            "registered for '%s'" % model)
+            raise KeyError(
+                "A permission handler class is already " "registered for '%s'" % model
+            )
         if handler is None:
             handler = settings.PERMISSION_DEFAULT_PERMISSION_HANDLER
         if isstr(handler):
             handler = import_string(handler)
         if not inspect.isclass(handler):
             raise AttributeError(
-                    "`handler` attribute must be a class. "
-                    "An instance was specified.")
+                "`handler` attribute must be a class. " "An instance was specified."
+            )
         if not issubclass(handler, PermissionHandler):
             raise AttributeError(
-                    "`handler` attribute must be a subclass of "
-                    "`permission.handlers.PermissionHandler`")
+                "`handler` attribute must be a subclass of "
+                "`permission.handlers.PermissionHandler`"
+            )
 
         # Instantiate the handler to save in the registry
         instance = handler(model)
@@ -76,8 +83,10 @@ class PermissionHandlerRegistry(object):
             Raise when the model have not registered in registry yet.
         """
         if model not in self._registry:
-            raise KeyError("A permission handler class have not been "
-                           "registered for '%s' yet" % model)
+            raise KeyError(
+                "A permission handler class have not been "
+                "registered for '%s' yet" % model
+            )
         # remove from registry
         del self._registry[model]
 
@@ -92,5 +101,6 @@ class PermissionHandlerRegistry(object):
         """
         return tuple(self._registry.values())
 
+
+# Permission handler registry instance
 registry = PermissionHandlerRegistry()
-"""Permission handler registry instance"""

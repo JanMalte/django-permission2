@@ -3,12 +3,13 @@
 permission_required decorator for generic classbased view from django 1.3
 """
 from functools import wraps
+
 from django.core.exceptions import PermissionDenied
+
 from permission.decorators.utils import redirect_to_login
 
 
-def permission_required(perm, queryset=None,
-                        login_url=None, raise_exception=False):
+def permission_required(perm, queryset=None, login_url=None, raise_exception=False):
     """
     Permission check decorator for classbased generic view
 
@@ -36,14 +37,15 @@ def permission_required(perm, queryset=None,
     >>> class UpdateAuthUserView(UpdateView):
     ...     pass
     """
+
     def wrapper(cls):
         def view_wrapper(view_func):
             @wraps(view_func)
             def inner(self, request, *args, **kwargs):
                 # get object
                 obj = get_object_from_classbased_instance(
-                        self, queryset, request, *args, **kwargs
-                    )
+                    self, queryset, request, *args, **kwargs
+                )
 
                 if not request.user.has_perm(perm, obj=obj):
                     if raise_exception:
@@ -51,14 +53,16 @@ def permission_required(perm, queryset=None,
                     else:
                         return redirect_to_login(request, login_url)
                 return view_func(self, request, *args, **kwargs)
+
             return inner
+
         cls.dispatch = view_wrapper(cls.dispatch)
         return cls
+
     return wrapper
 
 
-def get_object_from_classbased_instance(
-        instance, queryset, request, *args, **kwargs):
+def get_object_from_classbased_instance(instance, queryset, request, *args, **kwargs):
     """
     Get object from an instance of classbased generic view
 
@@ -77,6 +81,7 @@ def get_object_from_classbased_instance(
         An instance of model object or None
     """
     from django.views.generic.edit import BaseCreateView
+
     # initialize request, args, kwargs of classbased_instance
     # most of methods of classbased view assumed these attributes
     # but these attributes is initialized in ``dispatch`` method.
@@ -85,15 +90,15 @@ def get_object_from_classbased_instance(
     instance.kwargs = kwargs
 
     # get queryset from class if ``queryset_or_model`` is not specified
-    if hasattr(instance, 'get_queryset') and not queryset:
+    if hasattr(instance, "get_queryset") and not queryset:
         queryset = instance.get_queryset()
-    elif hasattr(instance, 'queryset') and not queryset:
+    elif hasattr(instance, "queryset") and not queryset:
         queryset = instance.queryset
-    elif hasattr(instance, 'model') and not queryset:
+    elif hasattr(instance, "model") and not queryset:
         queryset = instance.model._default_manager.all()
 
     # get object
-    if hasattr(instance, 'get_object'):
+    if hasattr(instance, "get_object"):
         try:
             obj = instance.get_object(queryset)
         except AttributeError as e:
@@ -104,9 +109,8 @@ def get_object_from_classbased_instance(
                 obj = None
             else:
                 raise e
-    elif hasattr(instance, 'object'):
+    elif hasattr(instance, "object"):
         obj = instance.object
     else:
         obj = None
     return obj
-

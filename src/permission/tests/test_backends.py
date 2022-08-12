@@ -1,25 +1,26 @@
-from django.test import TestCase, override_settings
 from django.core.exceptions import ObjectDoesNotExist
+from django.test import TestCase, override_settings
+
 from ..backends import PermissionBackend
 from ..utils.handlers import registry
 from .compat import MagicMock
-from .utils import create_user, create_article
 from .models import Article
+from .utils import create_article, create_user
 
 
 @override_settings(
     AUTHENTICATION_BACKENDS=(
-        'django.contrib.auth.backends.ModelBackend',
-        'permission.backends.PermissionBackend',
+        "django.contrib.auth.backends.ModelBackend",
+        "permission.backends.PermissionBackend",
     ),
 )
 class PermissionPermissionBackendTestCase(TestCase):
     def setUp(self):
-        self.user = create_user('john')
-        self.perm1 = 'permission.add_article'
-        self.perm2 = 'permission.change_article'
-        self.perm3 = 'permission.delete_article'
-        self.article = create_article('test')
+        self.user = create_user("john")
+        self.perm1 = "permission.add_article"
+        self.perm2 = "permission.change_article"
+        self.perm3 = "permission.delete_article"
+        self.article = create_article("test")
         self.original_get_handlers = registry.get_handlers
 
     def tearDown(self):
@@ -34,16 +35,22 @@ class PermissionPermissionBackendTestCase(TestCase):
 
     def test_has_perm_without_obj(self):
         perms = [
-            'permission.add_article',
-            'permission.change_article',
-            'permission.delete_article',
+            "permission.add_article",
+            "permission.change_article",
+            "permission.delete_article",
         ]
-        registry.get_handlers = MagicMock(return_value=[
-            MagicMock(get_supported_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=False)),
-            MagicMock(get_supported_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=True)),
-        ])
+        registry.get_handlers = MagicMock(
+            return_value=[
+                MagicMock(
+                    get_supported_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=False),
+                ),
+                MagicMock(
+                    get_supported_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=True),
+                ),
+            ]
+        )
 
         backend = PermissionBackend()
         self.assertFalse(registry.get_handlers.called)
@@ -62,16 +69,22 @@ class PermissionPermissionBackendTestCase(TestCase):
 
     def test_has_perm_with_obj(self):
         perms = [
-            'permission.add_article',
-            'permission.change_article',
-            'permission.delete_article',
+            "permission.add_article",
+            "permission.change_article",
+            "permission.delete_article",
         ]
-        registry.get_handlers = MagicMock(return_value=[
-            MagicMock(get_supported_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=False)),
-            MagicMock(get_supported_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=True)),
-        ])
+        registry.get_handlers = MagicMock(
+            return_value=[
+                MagicMock(
+                    get_supported_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=False),
+                ),
+                MagicMock(
+                    get_supported_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=True),
+                ),
+            ]
+        )
 
         backend = PermissionBackend()
         self.assertFalse(registry.get_handlers.called)
@@ -93,76 +106,94 @@ class PermissionPermissionBackendTestCase(TestCase):
     )
     def test_has_perm_with_nil_permission(self):
         perms = [
-            'permission.add_article',
-            'permission.change_article',
-            'permission.delete_article',
+            "permission.add_article",
+            "permission.change_article",
+            "permission.delete_article",
         ]
-        registry.get_handlers = MagicMock(return_value=[
-            MagicMock(get_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=False)),
-            MagicMock(get_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=True)),
-        ])
+        registry.get_handlers = MagicMock(
+            return_value=[
+                MagicMock(
+                    get_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=False),
+                ),
+                MagicMock(
+                    get_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=True),
+                ),
+            ]
+        )
 
         backend = PermissionBackend()
-        self.assertFalse(backend.has_perm(None, 'permissions.nil_permission'))
+        self.assertFalse(backend.has_perm(None, "permissions.nil_permission"))
 
     @override_settings(
         PERMISSION_CHECK_PERMISSION_PRESENCE=True,
     )
     def test_has_perm_with_nil_permission_raise(self):
         perms = [
-            'permission.add_article',
-            'permission.change_article',
-            'permission.delete_article',
+            "permission.add_article",
+            "permission.change_article",
+            "permission.delete_article",
         ]
-        registry.get_handlers = MagicMock(return_value=[
-            MagicMock(get_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=False)),
-            MagicMock(get_permissions=MagicMock(return_value=perms),
-                      has_perm=MagicMock(return_value=True)),
-        ])
+        registry.get_handlers = MagicMock(
+            return_value=[
+                MagicMock(
+                    get_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=False),
+                ),
+                MagicMock(
+                    get_permissions=MagicMock(return_value=perms),
+                    has_perm=MagicMock(return_value=True),
+                ),
+            ]
+        )
 
         backend = PermissionBackend()
-        self.assertRaises(ObjectDoesNotExist,
-                backend.has_perm,
-                None, 'permissions.nil_permission')
+        self.assertRaises(
+            ObjectDoesNotExist, backend.has_perm, None, "permissions.nil_permission"
+        )
 
     @override_settings(
         PERMISSION_CHECK_PERMISSION_PRESENCE=False,
-        AUTHENTICATION_BACKENDS = (
-            'django.contrib.auth.backends.ModelBackend',
-            'permission.backends.PermissionBackend',
+        AUTHENTICATION_BACKENDS=(
+            "django.contrib.auth.backends.ModelBackend",
+            "permission.backends.PermissionBackend",
         ),
     )
     def test_has_perm_with_nil_permission_with_user(self):
-        self.assertFalse(self.user.has_perm('permissions.nil_permission'))
+        self.assertFalse(self.user.has_perm("permissions.nil_permission"))
 
     @override_settings(
         PERMISSION_CHECK_PERMISSION_PRESENCE=True,
-        AUTHENTICATION_BACKENDS = (
-            'django.contrib.auth.backends.ModelBackend',
-            'permission.backends.PermissionBackend',
+        AUTHENTICATION_BACKENDS=(
+            "django.contrib.auth.backends.ModelBackend",
+            "permission.backends.PermissionBackend",
         ),
     )
     def test_has_perm_with_nil_permission_raise_with_user(self):
-        self.assertRaises(ObjectDoesNotExist,
-                self.user.has_perm,
-                'permissions.nil_permission')
+        self.assertRaises(
+            ObjectDoesNotExist, self.user.has_perm, "permissions.nil_permission"
+        )
 
     def test_has_module_perms(self):
         perms = [
-            'permission.add_article',
-            'permission.change_article',
-            'permission.delete_article',
+            "permission.add_article",
+            "permission.change_article",
+            "permission.delete_article",
         ]
-        app_labels = ['permission']
-        registry.get_handlers = MagicMock(return_value=[
-            MagicMock(get_supported_app_labels=MagicMock(return_value=app_labels),
-                      has_module_perms=MagicMock(return_value=False)),
-            MagicMock(get_supported_app_labels=MagicMock(return_value=app_labels),
-                      has_module_perms=MagicMock(return_value=True)),
-        ])
+        app_labels = ["permission"]
+        registry.get_handlers = MagicMock(
+            return_value=[
+                MagicMock(
+                    get_supported_app_labels=MagicMock(return_value=app_labels),
+                    has_module_perms=MagicMock(return_value=False),
+                ),
+                MagicMock(
+                    get_supported_app_labels=MagicMock(return_value=app_labels),
+                    has_module_perms=MagicMock(return_value=True),
+                ),
+            ]
+        )
 
         backend = PermissionBackend()
         self.assertFalse(registry.get_handlers.called)
@@ -171,7 +202,7 @@ class PermissionPermissionBackendTestCase(TestCase):
         self.assertFalse(registry.get_handlers()[0].has_module_perms.called)
         self.assertFalse(registry.get_handlers()[1].has_module_perms.called)
 
-        self.assertTrue(backend.has_module_perms(self.user, 'permission'))
+        self.assertTrue(backend.has_module_perms(self.user, "permission"))
 
         self.assertTrue(registry.get_handlers.called)
         self.assertTrue(registry.get_handlers()[0].get_supported_app_labels.called)

@@ -2,20 +2,23 @@
 """
 Permission logic module for author based permission system
 """
+from permission.compat import is_authenticated
 from permission.conf import settings
 from permission.logics.base import PermissionLogic
-from permission.compat import is_authenticated
 
 
 class StaffPermissionLogic(PermissionLogic):
     """
     Permission logic class for is_staff authority based permission system
     """
-    def __init__(self,
-                 any_permission=None,
-                 add_permission=None,
-                 change_permission=None,
-                 delete_permission=None):
+
+    def __init__(
+        self,
+        any_permission=None,
+        add_permission=None,
+        change_permission=None,
+        delete_permission=None,
+    ):
         """
         Constructor
 
@@ -54,17 +57,13 @@ class StaffPermissionLogic(PermissionLogic):
         self.delete_permission = delete_permission
 
         if self.any_permission is None:
-            self.any_permission = \
-                settings.PERMISSION_DEFAULT_SPL_ANY_PERMISSION
+            self.any_permission = settings.PERMISSION_DEFAULT_SPL_ANY_PERMISSION
         if self.add_permission is None:
-            self.add_permission = \
-                settings.PERMISSION_DEFAULT_SPL_ADD_PERMISSION
+            self.add_permission = settings.PERMISSION_DEFAULT_SPL_ADD_PERMISSION
         if self.change_permission is None:
-            self.change_permission = \
-                settings.PERMISSION_DEFAULT_SPL_CHANGE_PERMISSION
+            self.change_permission = settings.PERMISSION_DEFAULT_SPL_CHANGE_PERMISSION
         if self.delete_permission is None:
-            self.delete_permission = \
-                settings.PERMISSION_DEFAULT_SPL_DELETE_PERMISSION
+            self.delete_permission = settings.PERMISSION_DEFAULT_SPL_DELETE_PERMISSION
 
     def has_perm(self, user_obj, perm, obj=None):
         """
@@ -101,9 +100,9 @@ class StaffPermissionLogic(PermissionLogic):
         if not is_authenticated(user_obj):
             return False
         # construct the permission full name
-        add_permission = self.get_full_permission_string('add')
-        change_permission = self.get_full_permission_string('change')
-        delete_permission = self.get_full_permission_string('delete')
+        add_permission = self.get_full_permission_string("add")
+        change_permission = self.get_full_permission_string("change")
+        delete_permission = self.get_full_permission_string("delete")
         if obj is None:
             if user_obj.is_staff:
                 if self.add_permission and perm == add_permission:
@@ -119,13 +118,10 @@ class StaffPermissionLogic(PermissionLogic):
                 if self.any_permission:
                     # have any kind of permissions to the obj
                     return True
-                if (self.add_permission and
-                        perm == add_permission):
+                if self.add_permission and perm == add_permission:
                     return True
-                if (self.change_permission and
-                        perm == change_permission):
+                if self.change_permission and perm == change_permission:
                     return True
-                if (self.delete_permission and
-                        perm == delete_permission):
+                if self.delete_permission and perm == delete_permission:
                     return True
         return False

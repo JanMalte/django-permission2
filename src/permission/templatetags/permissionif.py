@@ -4,11 +4,9 @@ permissionif templatetag
 """
 from django import template
 from django.template import TemplateSyntaxError
-from django.template.smartif import infix
-from django.template.smartif import IfParser
-from django.template.smartif import OPERATORS
-from django.template.defaulttags import IfNode
-from django.template.defaulttags import TemplateLiteral
+from django.template.defaulttags import IfNode, TemplateLiteral
+from django.template.smartif import OPERATORS, IfParser, infix
+
 from permission.conf import settings
 
 register = template.Library()
@@ -37,10 +35,11 @@ def has_operator(context, x, y):
         obj = None
     return user.has_perm(perm, obj)
 
+
 # Add 'of' and 'has' operator to existing operators
 EXTRA_OPERATORS = {
-    'of': infix(20, of_operator),
-    'has': infix(10, has_operator),
+    "of": infix(20, of_operator),
+    "has": infix(10, has_operator),
 }
 EXTRA_OPERATORS.update(OPERATORS)
 for key, op in EXTRA_OPERATORS.items():
@@ -49,6 +48,7 @@ for key, op in EXTRA_OPERATORS.items():
 
 class PermissionIfParser(IfParser):
     """Permission if parser"""
+
     OPERATORS = EXTRA_OPERATORS
     """use extra operator"""
 
@@ -73,7 +73,7 @@ class TemplatePermissionIfParser(PermissionIfParser):
         return TemplateLiteral(self.template_parser.compile_filter(value), value)
 
 
-@register.tag('permission')
+@register.tag("permission")
 def do_permissionif(parser, token):
     """
     Permission if templatetag
@@ -126,19 +126,24 @@ def do_permissionif(parser, token):
     assert token.contents == ENDIF
 
     return IfNode(conditions_nodelists)
+
+
 do_permissionif.Parser = TemplatePermissionIfParser
 
 
 # To replace builtin if
 def replace_builtin_if(replace=False):
     if replace:
-        OPERATORS.update({
-            'has': EXTRA_OPERATORS['has'],
-            'of': EXTRA_OPERATORS['of'],
-        })
+        OPERATORS.update(
+            {
+                "has": EXTRA_OPERATORS["has"],
+                "of": EXTRA_OPERATORS["of"],
+            }
+        )
     else:
         # remove of, has from OPERATORS
-        OPERATORS.pop('of', None)
-        OPERATORS.pop('has', None)
+        OPERATORS.pop("of", None)
+        OPERATORS.pop("has", None)
+
 
 replace_builtin_if(settings.PERMISSION_REPLACE_BUILTIN_IF)

@@ -2,14 +2,15 @@
 Decorator module for permission
 """
 import inspect
+
 from django.db.models import Model
 
+__all__ = ["permission_required"]
 
-__all__ = ['permission_required']
 
-
-def permission_required(perm, queryset_or_model=None,
-                        login_url=None, raise_exception=False):
+def permission_required(
+    perm, queryset_or_model=None, login_url=None, raise_exception=False
+):
     """
     Permission check decorator for classbased/functional generic view
 
@@ -59,13 +60,15 @@ def permission_required(perm, queryset_or_model=None,
 
     def wrapper(class_or_method):
         if inspect.isclass(class_or_method):
-            from permission.decorators.classbase import \
-                    permission_required as decorator
+            from permission.decorators.classbase import permission_required as decorator
         else:
             # method_permission_required can handle method or function
             # correctly.
-            from permission.decorators.methodbase import \
-                    permission_required as decorator
-        return decorator(perm, queryset_or_model,
-                         login_url, raise_exception)(class_or_method)
+            from permission.decorators.methodbase import (
+                permission_required as decorator,
+            )
+        return decorator(perm, queryset_or_model, login_url, raise_exception)(
+            class_or_method
+        )
+
     return wrapper

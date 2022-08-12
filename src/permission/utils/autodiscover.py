@@ -1,5 +1,6 @@
 # coding=utf-8
 from __future__ import unicode_literals
+
 from django.apps import apps
 
 
@@ -10,6 +11,7 @@ def autodiscover(module_name=None):
     they may want.
     """
     from django.utils.module_loading import module_has_submodule
+
     from permission.compat import import_module
     from permission.conf import settings
 
@@ -49,8 +51,7 @@ def discover(app, module_name=None):
 
         >>> discover('your_app')
     """
-    from permission.compat import import_module
-    from permission.compat import get_model
+    from permission.compat import get_model, import_module
     from permission.conf import settings
     from permission.utils.logics import add_permission_logic
 
@@ -58,7 +59,7 @@ def discover(app, module_name=None):
     module_name = module_name or settings.PERMISSION_AUTODISCOVER_MODULE_NAME
 
     # import the module
-    m = import_module('%s.%s' % (app, module_name))
+    m = import_module("%s.%s" % (app, module_name))
 
     # check if the module have PERMISSION_LOGICS variable
     if hasattr(m, variable_name):
@@ -67,5 +68,5 @@ def discover(app, module_name=None):
         for model, permission_logic in permission_logic_set:
             if isinstance(model, str):
                 # convert model string to model instance
-                model = get_model(*model.split('.', 1))
+                model = get_model(*model.split(".", 1))
             add_permission_logic(model, permission_logic)

@@ -3,13 +3,14 @@
 permission_required decorator for generic classbased/functionbased view
 """
 from functools import wraps
-from django.http import HttpRequest
+
 from django.core.exceptions import PermissionDenied
+from django.http import HttpRequest
+
 from permission.decorators.utils import redirect_to_login
 
 
-def permission_required(perm, queryset=None,
-                        login_url=None, raise_exception=False):
+def permission_required(perm, queryset=None, login_url=None, raise_exception=False):
     """
     Permission check decorator for classbased/functionbased generic view
 
@@ -43,15 +44,17 @@ def permission_required(perm, queryset=None,
     >>> def update_auth_user(request, *args, **kwargs):
     ...     pass
     """
+
     def wrapper(view_method):
         @wraps(view_method)
         def inner(self, request=None, *args, **kwargs):
             if isinstance(self, HttpRequest):
-                from permission.decorators.functionbase import \
-                        permission_required as decorator
+                from permission.decorators.functionbase import (
+                    permission_required as decorator,
+                )
+
                 # this is a functional view not classbased view.
-                decorator = decorator(perm, queryset,
-                                      login_url, raise_exception)
+                decorator = decorator(perm, queryset, login_url, raise_exception)
                 decorator = decorator(view_method)
                 if not request:
                     args = list(args)
@@ -59,12 +62,14 @@ def permission_required(perm, queryset=None,
                 request = self
                 return decorator(request, *args, **kwargs)
             else:
-                from permission.decorators.classbase import \
-                        get_object_from_classbased_instance
+                from permission.decorators.classbase import (
+                    get_object_from_classbased_instance,
+                )
+
                 # get object
                 obj = get_object_from_classbased_instance(
-                        self, queryset, request, *args, **kwargs
-                    )
+                    self, queryset, request, *args, **kwargs
+                )
 
                 if not request.user.has_perm(perm, obj=obj):
                     if raise_exception:
@@ -72,5 +77,7 @@ def permission_required(perm, queryset=None,
                     else:
                         return redirect_to_login(request, login_url)
                 return view_method(self, request, *args, **kwargs)
+
         return inner
+
     return wrapper

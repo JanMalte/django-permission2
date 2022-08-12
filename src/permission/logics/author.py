@@ -2,21 +2,24 @@
 """
 Permission logic module for author based permission system
 """
+from permission.compat import is_authenticated
 from permission.conf import settings
 from permission.logics.base import PermissionLogic
 from permission.utils.field_lookup import field_lookup
-from permission.compat import is_authenticated
 
 
 class AuthorPermissionLogic(PermissionLogic):
     """
     Permission logic class for author based permission system
     """
-    def __init__(self,
-                 field_name=None,
-                 any_permission=None,
-                 change_permission=None,
-                 delete_permission=None):
+
+    def __init__(
+        self,
+        field_name=None,
+        any_permission=None,
+        change_permission=None,
+        delete_permission=None,
+    ):
         """
         Constructor
 
@@ -55,17 +58,13 @@ class AuthorPermissionLogic(PermissionLogic):
         self.delete_permission = delete_permission
 
         if self.field_name is None:
-            self.field_name = \
-                settings.PERMISSION_DEFAULT_APL_FIELD_NAME
+            self.field_name = settings.PERMISSION_DEFAULT_APL_FIELD_NAME
         if self.any_permission is None:
-            self.any_permission = \
-                settings.PERMISSION_DEFAULT_APL_ANY_PERMISSION
+            self.any_permission = settings.PERMISSION_DEFAULT_APL_ANY_PERMISSION
         if self.change_permission is None:
-            self.change_permission = \
-                settings.PERMISSION_DEFAULT_APL_CHANGE_PERMISSION
+            self.change_permission = settings.PERMISSION_DEFAULT_APL_CHANGE_PERMISSION
         if self.delete_permission is None:
-            self.delete_permission = \
-                settings.PERMISSION_DEFAULT_APL_DELETE_PERMISSION
+            self.delete_permission = settings.PERMISSION_DEFAULT_APL_DELETE_PERMISSION
 
     def has_perm(self, user_obj, perm, obj=None):
         """
@@ -104,8 +103,8 @@ class AuthorPermissionLogic(PermissionLogic):
         if not is_authenticated(user_obj):
             return False
         # construct the permission full name
-        change_permission = self.get_full_permission_string('change')
-        delete_permission = self.get_full_permission_string('delete')
+        change_permission = self.get_full_permission_string("change")
+        delete_permission = self.get_full_permission_string("delete")
         # check if the user is authenticated
         if obj is None:
             # object permission without obj should return True
@@ -124,10 +123,8 @@ class AuthorPermissionLogic(PermissionLogic):
                 if self.any_permission:
                     # have any kind of permissions to the obj
                     return True
-                if (self.change_permission and
-                        perm == change_permission):
+                if self.change_permission and perm == change_permission:
                     return True
-                if (self.delete_permission and
-                        perm == delete_permission):
+                if self.delete_permission and perm == delete_permission:
                     return True
         return False

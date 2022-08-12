@@ -1,20 +1,20 @@
 # coding=utf-8
-from django.test import TestCase, override_settings
 from django.template import Context, Template
-from ...utils.handlers import registry
+from django.test import TestCase, override_settings
+
 from ...templatetags.permissionif import replace_builtin_if
-from ..utils import create_user, create_article, create_permission
+from ...utils.handlers import registry
+from ..utils import create_article, create_permission, create_user
 
 
 @override_settings(
     AUTHENTICATION_BACKENDS=(
-        'django.contrib.auth.backends.ModelBackend',
-        'permission.backends.PermissionBackend',
+        "django.contrib.auth.backends.ModelBackend",
+        "permission.backends.PermissionBackend",
     ),
     PERMISSION_REPLACE_BUILTIN_IF=False,
 )
 class PermissionTemplateTagsTestCase(TestCase):
-
     def setUp(self):
         # store original registry
         self._original_registry = registry._registry
@@ -28,17 +28,18 @@ class PermissionTemplateTagsTestCase(TestCase):
         registry._registry = self._original_registry
 
     def test_permissionif_tag(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(user.has_perm(
-            'permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% load permissionif %}"
@@ -53,17 +54,18 @@ class PermissionTemplateTagsTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_elif(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(user.has_perm(
-            'permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% load permissionif %}"
@@ -82,17 +84,18 @@ class PermissionTemplateTagsTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_else(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% load permissionif %}"
@@ -106,38 +109,38 @@ class PermissionTemplateTagsTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_with_obj(self):
-        from permission.tests.models import Article
         from permission.handlers import PermissionHandler
+        from permission.tests.models import Article
 
-        user = create_user('permission_templatetag_test_user1')
-        art1 = create_article('permission_templatetag_test_article1')
-        art2 = create_article('permission_templatetag_test_article2')
-        create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        art1 = create_article("permission_templatetag_test_article1")
+        art2 = create_article("permission_templatetag_test_article2")
+        create_permission("permission_templatetag_test_perm1")
 
         class ArticlePermissionHandler(PermissionHandler):
-
             def has_perm(self, user_obj, perm, obj=None):
-                if perm == 'permission.permission_templatetag_test_perm1':
-                    if (obj and obj.title ==
-                            'permission_templatetag_test_article2'):
+                if perm == "permission.permission_templatetag_test_perm1":
+                    if obj and obj.title == "permission_templatetag_test_article2":
                         return True
                 return False
+
         registry.register(Article, ArticlePermissionHandler)
 
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1"))
         self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm1',
-                          art1))
+            user.has_perm("permission.permission_templatetag_test_perm1", art1)
+        )
         self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1',
-                          art2))
+            user.has_perm("permission.permission_templatetag_test_perm1", art2)
+        )
 
-        context = Context({
-            'user': user,
-            'art1': art1,
-            'art2': art2,
-        })
+        context = Context(
+            {
+                "user": user,
+                "art1": art1,
+                "art2": art2,
+            }
+        )
 
         out = Template(
             "{% load permissionif %}"
@@ -158,20 +161,20 @@ class PermissionTemplateTagsTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_and(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm1 = create_permission('permission_templatetag_test_perm1')
-        perm2 = create_permission('permission_templatetag_test_perm2')
+        user = create_user("permission_templatetag_test_user1")
+        perm1 = create_permission("permission_templatetag_test_perm1")
+        perm2 = create_permission("permission_templatetag_test_perm2")
 
         user.user_permissions.add(perm1, perm2)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm2'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm2"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% load permissionif %}"
@@ -193,20 +196,20 @@ class PermissionTemplateTagsTestCase(TestCase):
 
     def test_permissionif_tag_or(self):
 
-        user = create_user('permission_templatetag_test_user1')
-        perm1 = create_permission('permission_templatetag_test_perm1')
-        create_permission('permission_templatetag_test_perm2')
+        user = create_user("permission_templatetag_test_user1")
+        perm1 = create_permission("permission_templatetag_test_perm1")
+        create_permission("permission_templatetag_test_perm2")
 
         user.user_permissions.add(perm1)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm2'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm2"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% load permissionif %}"
@@ -226,13 +229,12 @@ class PermissionTemplateTagsTestCase(TestCase):
 
 @override_settings(
     AUTHENTICATION_BACKENDS=(
-        'django.contrib.auth.backends.ModelBackend',
-        'permission.backends.PermissionBackend',
+        "django.contrib.auth.backends.ModelBackend",
+        "permission.backends.PermissionBackend",
     ),
     PERMISSION_REPLACE_BUILTIN_IF=True,
 )
 class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
-
     def setUp(self):
         # store original registry
         self._original_registry = registry._registry
@@ -246,17 +248,18 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         registry._registry = self._original_registry
 
     def test_permissionif_tag(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(user.has_perm(
-            'permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% permission user has "
@@ -270,17 +273,18 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_elif(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(user.has_perm(
-            'permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% permission user has 'permission.unknown_permission' %}"
@@ -298,17 +302,18 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_else(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% permission user has 'permission.unknown_permission' %}"
@@ -321,38 +326,38 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_with_obj(self):
-        from permission.tests.models import Article
         from permission.handlers import PermissionHandler
+        from permission.tests.models import Article
 
-        user = create_user('permission_templatetag_test_user1')
-        art1 = create_article('permission_templatetag_test_article1')
-        art2 = create_article('permission_templatetag_test_article2')
-        create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        art1 = create_article("permission_templatetag_test_article1")
+        art2 = create_article("permission_templatetag_test_article2")
+        create_permission("permission_templatetag_test_perm1")
 
         class ArticlePermissionHandler(PermissionHandler):
-
             def has_perm(self, user_obj, perm, obj=None):
-                if perm == 'permission.permission_templatetag_test_perm1':
-                    if (obj and obj.title ==
-                            'permission_templatetag_test_article2'):
+                if perm == "permission.permission_templatetag_test_perm1":
+                    if obj and obj.title == "permission_templatetag_test_article2":
                         return True
                 return False
+
         registry.register(Article, ArticlePermissionHandler)
 
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1"))
         self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm1',
-                          art1))
+            user.has_perm("permission.permission_templatetag_test_perm1", art1)
+        )
         self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1',
-                          art2))
+            user.has_perm("permission.permission_templatetag_test_perm1", art2)
+        )
 
-        context = Context({
-            'user': user,
-            'art1': art1,
-            'art2': art2,
-        })
+        context = Context(
+            {
+                "user": user,
+                "art1": art1,
+                "art2": art2,
+            }
+        )
 
         out = Template(
             "{% permission user has "
@@ -372,20 +377,20 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_and(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm1 = create_permission('permission_templatetag_test_perm1')
-        perm2 = create_permission('permission_templatetag_test_perm2')
+        user = create_user("permission_templatetag_test_user1")
+        perm1 = create_permission("permission_templatetag_test_perm1")
+        perm2 = create_permission("permission_templatetag_test_perm2")
 
         user.user_permissions.add(perm1, perm2)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm2'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm2"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% permission user has 'permission.unknown_perm' "
@@ -406,20 +411,20 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
 
     def test_permissionif_tag_or(self):
 
-        user = create_user('permission_templatetag_test_user1')
-        perm1 = create_permission('permission_templatetag_test_perm1')
-        create_permission('permission_templatetag_test_perm2')
+        user = create_user("permission_templatetag_test_user1")
+        perm1 = create_permission("permission_templatetag_test_perm1")
+        create_permission("permission_templatetag_test_perm2")
 
         user.user_permissions.add(perm1)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm2'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm2"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% permission user has "
@@ -436,17 +441,18 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_if_tag(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% if user has 'permission.permission_templatetag_test_perm1' %}"
@@ -459,17 +465,18 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_if_tag_elif(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% if user has 'permission.unknown_permission' %}"
@@ -487,17 +494,18 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_if_tag_else(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm = create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        perm = create_permission("permission_templatetag_test_perm1")
 
         user.user_permissions.add(perm)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% if user has 'permission.unknown_permission' %}"
@@ -510,37 +518,38 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_if_tag_with_obj(self):
-        from permission.tests.models import Article
         from permission.handlers import PermissionHandler
+        from permission.tests.models import Article
 
-        user = create_user('permission_templatetag_test_user1')
-        art1 = create_article('permission_templatetag_test_article1')
-        art2 = create_article('permission_templatetag_test_article2')
-        create_permission('permission_templatetag_test_perm1')
+        user = create_user("permission_templatetag_test_user1")
+        art1 = create_article("permission_templatetag_test_article1")
+        art2 = create_article("permission_templatetag_test_article2")
+        create_permission("permission_templatetag_test_perm1")
 
         class ArticlePermissionHandler(PermissionHandler):
             def has_perm(self, user_obj, perm, obj=None):
-                if perm == 'permission.permission_templatetag_test_perm1':
-                    if (obj and obj.title ==
-                            'permission_templatetag_test_article2'):
+                if perm == "permission.permission_templatetag_test_perm1":
+                    if obj and obj.title == "permission_templatetag_test_article2":
                         return True
                 return False
+
         registry.register(Article, ArticlePermissionHandler)
 
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1"))
         self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm1',
-                          art1))
+            user.has_perm("permission.permission_templatetag_test_perm1", art1)
+        )
         self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1',
-                          art2))
+            user.has_perm("permission.permission_templatetag_test_perm1", art2)
+        )
 
-        context = Context({
-            'user': user,
-            'art1': art1,
-            'art2': art2,
-        })
+        context = Context(
+            {
+                "user": user,
+                "art1": art1,
+                "art2": art2,
+            }
+        )
 
         out = Template(
             "{% if user has 'permission.permission_templatetag_test_perm1' %}"
@@ -559,20 +568,20 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_if_tag_and(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm1 = create_permission('permission_templatetag_test_perm1')
-        perm2 = create_permission('permission_templatetag_test_perm2')
+        user = create_user("permission_templatetag_test_user1")
+        perm1 = create_permission("permission_templatetag_test_perm1")
+        perm2 = create_permission("permission_templatetag_test_perm2")
 
         user.user_permissions.add(perm1, perm2)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm2'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm2"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% if user has 'permission.unknown_perm' "
@@ -590,20 +599,20 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_if_tag_or(self):
-        user = create_user('permission_templatetag_test_user1')
-        perm1 = create_permission('permission_templatetag_test_perm1')
-        create_permission('permission_templatetag_test_perm2')
+        user = create_user("permission_templatetag_test_user1")
+        perm1 = create_permission("permission_templatetag_test_perm1")
+        create_permission("permission_templatetag_test_perm2")
 
         user.user_permissions.add(perm1)
 
-        self.assertTrue(
-            user.has_perm('permission.permission_templatetag_test_perm1'))
-        self.assertFalse(
-            user.has_perm('permission.permission_templatetag_test_perm2'))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1"))
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm2"))
 
-        context = Context({
-            'user': user,
-        })
+        context = Context(
+            {
+                "user": user,
+            }
+        )
 
         out = Template(
             "{% if user has 'permission.permission_templatetag_test_perm1' "

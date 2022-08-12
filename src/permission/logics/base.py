@@ -5,14 +5,17 @@ class PermissionLogic(object):
     """
     Abstract permission logic class
     """
+
     def get_full_permission_string(self, perm):
         """
         Return full permission string (app_label.perm_model)
         """
-        if not getattr(self, 'model', None):
-            raise AttributeError("You need to use `add_permission_logic` to "
-                                 "register the instance to the model class "
-                                 "before calling this method.")
+        if not getattr(self, "model", None):
+            raise AttributeError(
+                "You need to use `add_permission_logic` to "
+                "register the instance to the model class "
+                "before calling this method."
+            )
         app_label = self.model._meta.app_label
         model_name = self.model._meta.object_name.lower()
         return "%s.%s_%s" % (app_label, perm, model_name)
@@ -40,6 +43,7 @@ class PermissionLogic(object):
             Sub class must override this method.
         """
         raise NotImplementedError(
-                "'%s' does not override `has_perm(user_obj, perm, obj=None)` "
-                "method. Sub class of `PermissionLogic` must override this "
-                "method.")
+            "'%s' does not override `has_perm(user_obj, perm, obj=None)` "
+            "method. Sub class of `PermissionLogic` must override this "
+            "method."
+        )

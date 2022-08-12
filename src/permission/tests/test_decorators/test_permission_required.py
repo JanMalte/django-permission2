@@ -1,25 +1,26 @@
-from django.test import TestCase
-from django.http import HttpRequest
 from django.core.exceptions import PermissionDenied
-from ...utils.handlers import registry
+from django.http import HttpRequest
+from django.test import TestCase
+
+from ...decorators import permission_required as p
+from ...decorators.classbase import permission_required as c
 from ...decorators.functionbase import permission_required as f
 from ...decorators.methodbase import permission_required as m
-from ...decorators.classbase import permission_required as c
-from ...decorators import permission_required as p
+from ...utils.handlers import registry
 from ..compat import MagicMock
 from .utils import (
     create_mock_handler,
-    create_mock_request,
-    create_mock_queryset,
     create_mock_model,
-    create_mock_view_func,
+    create_mock_queryset,
+    create_mock_request,
     create_mock_view_class,
+    create_mock_view_func,
 )
 
-p = p('permission.add_article')
-c = c('permission.add_article')
-m = m('permission.add_article')
-f = f('permission.add_article')
+p = p("permission.add_article")
+c = c("permission.add_article")
+m = m("permission.add_article")
+f = f("permission.add_article")
 
 model = create_mock_model()
 instance = model()
@@ -27,6 +28,8 @@ instance = model()
 
 def view_func(request, *args, **kwargs):
     assert isinstance(request, HttpRequest)
+
+
 try:
     from django.views.generic import View as BaseView
 except ImportError:
@@ -38,12 +41,12 @@ class View(BaseView):
     def dispatch(self, request, *args, **kwargs):
         assert isinstance(self, View)
         assert isinstance(request, HttpRequest)
+
     def get_object(self, queryset=None):
         return instance
 
 
 class PermissionDecoratorsTestCase(TestCase):
-
     def setUp(self):
         self.handler = create_mock_handler()
         self.request = create_mock_request(self.handler)
@@ -55,9 +58,9 @@ class PermissionDecoratorsTestCase(TestCase):
         # clear registry and register mock handler
         registry._registry = {}
         registry.register(
-                model,
-                self.handler,
-            )
+            model,
+            self.handler,
+        )
 
     def tearDown(self):
         # restore original registry
@@ -87,8 +90,7 @@ class PermissionDecoratorsTestCase(TestCase):
 
         # function decorators cannot handle
         function_view = f(View.dispatch)
-        self.assertRaises(AttributeError, function_view,
-                          View(), self.request, pk=1)
+        self.assertRaises(AttributeError, function_view, View(), self.request, pk=1)
 
     def test_class_views(self):
         # class decorator can handle
@@ -97,11 +99,11 @@ class PermissionDecoratorsTestCase(TestCase):
 
         # method decorator cannot handle
         method_view = m(View)
-        self.assertFalse(hasattr(method_view, 'as_view'))
+        self.assertFalse(hasattr(method_view, "as_view"))
 
         # function decorator cannot handle
         function_view = f(View)
-        self.assertFalse(hasattr(method_view, 'as_view'))
+        self.assertFalse(hasattr(method_view, "as_view"))
 
     def test_permission_required(self):
         # function

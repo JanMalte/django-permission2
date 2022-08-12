@@ -1,17 +1,17 @@
 # coding=utf-8
 from django.test import TestCase
+
 from ...logics import PermissionLogic
-from ..utils import create_user, create_article
+from ..utils import create_article, create_user
 
 
 class PermissionLogicsPermissionLogicTestCase(TestCase):
-
     def setUp(self):
-        self.user = create_user('john')
-        self.perm1 = 'permission.add_article'
-        self.perm2 = 'permission.change_article'
-        self.perm3 = 'permission.delete_article'
-        self.article = create_article('test')
+        self.user = create_user("john")
+        self.perm1 = "permission.add_article"
+        self.perm2 = "permission.change_article"
+        self.perm3 = "permission.delete_article"
+        self.article = create_article("test")
 
     def test_constructor(self):
         permission_logic = PermissionLogic()
@@ -19,36 +19,48 @@ class PermissionLogicsPermissionLogicTestCase(TestCase):
 
     def test_has_perm_add_wihtout_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(NotImplementedError,
-                          permission_logic.has_perm,
-                          self.user, self.perm1)
+        self.assertRaises(
+            NotImplementedError, permission_logic.has_perm, self.user, self.perm1
+        )
 
     def test_has_perm_change_wihtout_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(NotImplementedError,
-                          permission_logic.has_perm,
-                          self.user, self.perm2)
+        self.assertRaises(
+            NotImplementedError, permission_logic.has_perm, self.user, self.perm2
+        )
 
     def test_has_perm_delete_wihtout_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(NotImplementedError,
-                          permission_logic.has_perm,
-                          self.user, self.perm3)
+        self.assertRaises(
+            NotImplementedError, permission_logic.has_perm, self.user, self.perm3
+        )
 
     def test_has_perm_add_wiht_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(NotImplementedError,
-                          permission_logic.has_perm,
-                          self.user, self.perm1, self.article)
+        self.assertRaises(
+            NotImplementedError,
+            permission_logic.has_perm,
+            self.user,
+            self.perm1,
+            self.article,
+        )
 
     def test_has_perm_change_wiht_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(NotImplementedError,
-                          permission_logic.has_perm,
-                          self.user, self.perm2, self.article)
+        self.assertRaises(
+            NotImplementedError,
+            permission_logic.has_perm,
+            self.user,
+            self.perm2,
+            self.article,
+        )
 
     def test_has_perm_delete_wiht_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(NotImplementedError,
-                          permission_logic.has_perm,
-                          self.user, self.perm3, self.article)
+        self.assertRaises(
+            NotImplementedError,
+            permission_logic.has_perm,
+            self.user,
+            self.perm3,
+            self.article,
+        )

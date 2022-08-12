@@ -3,6 +3,7 @@
 Permission logic utilities
 """
 from __future__ import unicode_literals
+
 from permission.logics import PermissionLogic
 
 
@@ -29,11 +30,13 @@ def add_permission_logic(model, permission_logic):
     """
     if not isinstance(permission_logic, PermissionLogic):
         raise AttributeError(
-        '`permission_logic` must be an instance of PermissionLogic')
-    if not hasattr(model, '_permission_logics'):
+            "`permission_logic` must be an instance of PermissionLogic"
+        )
+    if not hasattr(model, "_permission_logics"):
         model._permission_logics = set()
-    if not hasattr(model, '_permission_handler'):
+    if not hasattr(model, "_permission_handler"):
         from permission.utils.handlers import registry
+
         # register default permission handler
         registry.register(model, handler=None)
     model._permission_logics.add(permission_logic)
@@ -67,7 +70,7 @@ def remove_permission_logic(model, permission_logic, fail_silently=True):
     >>> add_permission_logic(Mock, logic)
     >>> remove_permission_logic(Mock, logic)
     """
-    if not hasattr(model, '_permission_logics'):
+    if not hasattr(model, "_permission_logics"):
         model._permission_logics = set()
     if not isinstance(permission_logic, PermissionLogic):
         # remove all permission logic of related
@@ -82,4 +85,3 @@ def remove_permission_logic(model, permission_logic, fail_silently=True):
             pass
         else:
             model._permission_logics.remove(permission_logic)
-

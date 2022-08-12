@@ -1,13 +1,14 @@
 # coding=utf-8
 import collections
-from permission.utils.permissions import get_app_perms
-from permission.utils.permissions import get_model_perms
+
+from permission.utils.permissions import get_app_perms, get_model_perms
 
 
 class PermissionHandler(object):
     """
     Abstract permission handler class
     """
+
     _includes = None
     _excludes = None
 
@@ -18,7 +19,7 @@ class PermissionHandler(object):
     @includes.setter
     def includes(self, value):
         # clear cache
-        if hasattr(self, '_perms_cache'):
+        if hasattr(self, "_perms_cache"):
             del self._perms_cache
         self._includes = value
 
@@ -29,7 +30,7 @@ class PermissionHandler(object):
     @excludes.setter
     def excludes(self, value):
         # clear cache
-        if hasattr(self, '_perms_cache'):
+        if hasattr(self, "_perms_cache"):
             del self._perms_cache
         self._excludes = value
 
@@ -65,7 +66,7 @@ class PermissionHandler(object):
         set
             A set instance of `app_label.codename` formatted permission strings
         """
-        if not hasattr(self, '_app_perms_cache'):
+        if not hasattr(self, "_app_perms_cache"):
             self._app_perms_cache = get_app_perms(self.app_label)
         return self._app_perms_cache
 
@@ -78,7 +79,7 @@ class PermissionHandler(object):
         set
             A set instance of `app_label.codename` formatted permission strings
         """
-        if not hasattr(self, '_model_perms_cache'):
+        if not hasattr(self, "_model_perms_cache"):
             if self.model is None:
                 self._model_perms_cache = set()
             else:
@@ -95,14 +96,12 @@ class PermissionHandler(object):
         set
             A set instance of `app_label.codename` formatted permission strings
         """
-        if not hasattr(self, '_perms_cache'):
-            if (self.includes and
-                    isinstance(self.includes, collections.Callable)):
+        if not hasattr(self, "_perms_cache"):
+            if self.includes and isinstance(self.includes, collections.Callable):
                 includes = self.includes(self)
             else:
                 includes = self.includes or []
-            if (self.excludes and
-                    isinstance(self.excludes, collections.Callable)):
+            if self.excludes and isinstance(self.excludes, collections.Callable):
                 excludes = self.excludes(self)
             else:
                 excludes = self.excludes or []
@@ -123,7 +122,7 @@ class PermissionHandler(object):
             A set instance of app_label
         """
         get_app_label = lambda x: x.split(".", 1)[0]
-        if not hasattr(self, '_app_labels_cache'):
+        if not hasattr(self, "_app_labels_cache"):
             perms = self.get_supported_permissions()
             self._app_labels_cache = set([get_app_label(x) for x in perms])
         return self._app_labels_cache
@@ -150,10 +149,13 @@ class PermissionHandler(object):
         .. note::
             Sub class must override this method.
         """
-        raise NotImplementedError((
-            "'%s' does not override `has_perm(user_obj, perm, obj=None)` "
-            "method. Sub class must override this method."
-        ) % self.__class__)
+        raise NotImplementedError(
+            (
+                "'%s' does not override `has_perm(user_obj, perm, obj=None)` "
+                "method. Sub class must override this method."
+            )
+            % self.__class__
+        )
 
     def has_module_perms(self, user_obj, app_label):
         """
@@ -206,9 +208,9 @@ class LogicalPermissionHandler(PermissionHandler):
         """
         # logical permission handler cannot treat application level permission
         if isinstance(model, str):
-            raise AttributeError((
-                "'%s' cannot treat application level permission."
-            ) % self.__class__)
+            raise AttributeError(
+                ("'%s' cannot treat application level permission.") % self.__class__
+            )
         super(LogicalPermissionHandler, self).__init__(model)
 
     def has_perm(self, user_obj, perm, obj=None):
@@ -236,7 +238,7 @@ class LogicalPermissionHandler(PermissionHandler):
         if perm not in self.get_supported_permissions():
             return False
         # use cache to reduce method call
-        CACHE_NAME = '_logical_perms_cache'
+        CACHE_NAME = "_logical_perms_cache"
         if not hasattr(user_obj, CACHE_NAME):
             setattr(user_obj, CACHE_NAME, {})
         cache = getattr(user_obj, CACHE_NAME)
@@ -248,8 +250,7 @@ class LogicalPermissionHandler(PermissionHandler):
     def _has_perm(self, user_obj, perm, obj=None):
         if perm not in self.get_supported_permissions():
             return False
-        for permission_logic in getattr(self.model,
-                                        '_permission_logics', set()):
+        for permission_logic in getattr(self.model, "_permission_logics", set()):
             if permission_logic.has_perm(user_obj, perm, obj):
                 return True
         return False

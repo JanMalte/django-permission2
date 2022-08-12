@@ -1,5 +1,6 @@
 """A module to lookup field of object."""
 from __future__ import unicode_literals
+
 from collections.abc import Iterable
 
 
@@ -29,12 +30,12 @@ def field_lookup(obj, field_path):
         >>> assert ['test_user'] == list(field_lookup(article,
         ...                                           'editors__username'))
     """
-    if hasattr(obj, 'iterator'):
+    if hasattr(obj, "iterator"):
         return (field_lookup(x, field_path) for x in obj.iterator())
     elif isinstance(obj, Iterable):
         return (field_lookup(x, field_path) for x in iter(obj))
     # split the path
-    field_path = field_path.split('__', 1)
+    field_path = field_path.split("__", 1)
     if len(field_path) == 1:
         return getattr(obj, field_path[0], None)
     return field_lookup(field_lookup(obj, field_path[0]), field_path[1])

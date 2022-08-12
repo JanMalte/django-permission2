@@ -2,21 +2,24 @@
 """
 Permission logic module for collaborators based permission system
 """
+from permission.compat import is_authenticated
 from permission.conf import settings
 from permission.logics.base import PermissionLogic
 from permission.utils.field_lookup import field_lookup
-from permission.compat import is_authenticated
 
 
 class CollaboratorsPermissionLogic(PermissionLogic):
     """
     Permission logic class for collaborators based permission system
     """
-    def __init__(self,
-                 field_name=None,
-                 any_permission=None,
-                 change_permission=None,
-                 delete_permission=None):
+
+    def __init__(
+        self,
+        field_name=None,
+        any_permission=None,
+        change_permission=None,
+        delete_permission=None,
+    ):
         """
         Constructor
 
@@ -57,17 +60,13 @@ class CollaboratorsPermissionLogic(PermissionLogic):
         self.delete_permission = delete_permission
 
         if self.field_name is None:
-            self.field_name = \
-                settings.PERMISSION_DEFAULT_CPL_FIELD_NAME
+            self.field_name = settings.PERMISSION_DEFAULT_CPL_FIELD_NAME
         if self.any_permission is None:
-            self.any_permission = \
-                settings.PERMISSION_DEFAULT_CPL_ANY_PERMISSION
+            self.any_permission = settings.PERMISSION_DEFAULT_CPL_ANY_PERMISSION
         if self.change_permission is None:
-            self.change_permission = \
-                settings.PERMISSION_DEFAULT_CPL_CHANGE_PERMISSION
+            self.change_permission = settings.PERMISSION_DEFAULT_CPL_CHANGE_PERMISSION
         if self.delete_permission is None:
-            self.delete_permission = \
-                settings.PERMISSION_DEFAULT_CPL_DELETE_PERMISSION
+            self.delete_permission = settings.PERMISSION_DEFAULT_CPL_DELETE_PERMISSION
 
     def has_perm(self, user_obj, perm, obj=None):
         """
@@ -107,8 +106,8 @@ class CollaboratorsPermissionLogic(PermissionLogic):
         if not is_authenticated(user_obj):
             return False
         # construct the permission full name
-        change_permission = self.get_full_permission_string('change')
-        delete_permission = self.get_full_permission_string('delete')
+        change_permission = self.get_full_permission_string("change")
+        delete_permission = self.get_full_permission_string("delete")
         if obj is None:
             # object permission without obj should return True
             # Ref: https://code.djangoproject.com/wiki/RowLevelPermissions
@@ -122,16 +121,14 @@ class CollaboratorsPermissionLogic(PermissionLogic):
         elif user_obj.is_active:
             # get collaborator queryset
             collaborators = field_lookup(obj, self.field_name)
-            if hasattr(collaborators, 'all'):
+            if hasattr(collaborators, "all"):
                 collaborators = collaborators.all()
             if user_obj in collaborators:
                 if self.any_permission:
                     # have any kind of permissions to the obj
                     return True
-                if (self.change_permission and
-                        perm == change_permission):
+                if self.change_permission and perm == change_permission:
                     return True
-                if (self.delete_permission and
-                        perm == delete_permission):
+                if self.delete_permission and perm == delete_permission:
                     return True
         return False

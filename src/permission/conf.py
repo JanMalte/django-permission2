@@ -2,17 +2,17 @@
 """
 django-permission2 application configure
 """
+from appconf import AppConf
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from appconf import AppConf
+
 from permission.handlers import LogicalPermissionHandler
 
-
-__all__ = ('settings',)
+__all__ = ("settings",)
 
 
 class PermissionConf(AppConf):
-    DEFAULT_PERMISSION_HANDLER = 'permission.handlers.LogicalPermissionHandler'
+    DEFAULT_PERMISSION_HANDLER = "permission.handlers.LogicalPermissionHandler"
     """Default permission handler class"""
 
     CHECK_PERMISSION_PRESENCE = settings.DEBUG
@@ -21,12 +21,12 @@ class PermissionConf(AppConf):
     REPLACE_BUILTIN_IF = True
     """Whether replace builtin if templatetag"""
 
-    DEFAULT_APL_FIELD_NAME = 'author'
+    DEFAULT_APL_FIELD_NAME = "author"
     DEFAULT_APL_ANY_PERMISSION = False
     DEFAULT_APL_CHANGE_PERMISSION = True
     DEFAULT_APL_DELETE_PERMISSION = True
 
-    DEFAULT_CPL_FIELD_NAME = 'collaborators'
+    DEFAULT_CPL_FIELD_NAME = "collaborators"
     DEFAULT_CPL_ANY_PERMISSION = False
     DEFAULT_CPL_CHANGE_PERMISSION = True
     DEFAULT_CPL_DELETE_PERMISSION = False
@@ -45,8 +45,8 @@ class PermissionConf(AppConf):
     DEFAULT_SPL_CHANGE_PERMISSION = True
     DEFAULT_SPL_DELETE_PERMISSION = False
 
-    AUTODISCOVER_MODULE_NAME = 'perms'
-    AUTODISCOVER_VARIABLE_NAME = 'PERMISSION_LOGICS'
+    AUTODISCOVER_MODULE_NAME = "perms"
+    AUTODISCOVER_VARIABLE_NAME = "PERMISSION_LOGICS"
     AUTODISCOVER_ENABLE = True
 
     CHECK_AUTHENTICATION_BACKENDS = True
