@@ -1,20 +1,26 @@
-Welcome to django-permission2's documentation!
-==============================================
+.. title:: django-permission2 documentation
 
 .. include:: ../README.rst
 
-API documentation
-==================
+.. toctree::
+   :maxdepth: 3
+   :caption: User Guide
+
+   user/install
+   user/perms
+   user/decorators
+   user/templatetags
+   user/license
 
 .. toctree::
    :maxdepth: 4
-   :caption: Contents:
+   :caption: API documentation
 
-   permission
+   api/index
 
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

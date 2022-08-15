@@ -76,24 +76,11 @@ Configuration
 
 3.  Follow the instructions below to apply logical permissions to django models
 
-Autodiscovery
-~~~~~~~~~~~~~
-Like django's admin package, django-permission2 automatically discovers the ``perms.py`` in your application directory **by running ``permission.autodiscover()``**.
-Additionally, if the ``perms.py`` module has a ``PERMISSION_LOGICS`` variable, django-permission2 automatically run the following functions to apply the permission logics.
+Quick tutorial
+~~~~~~~~~~~~~~
 
-.. code:: python
-
-    for model, permission_logic_instance in PERMISSION_LOGICS:
-        if isinstance(model, str):
-            model = get_model(*model.split(".", 1))
-        add_permission_logic(model, permission_logic_instance)
-
-.. note::
-
-    Autodiscover feature is automatically called if you are using django higher than 1.7 so no need to follow the tutorial below.
-    To disable, use `PERMISSION_AUTODISCOVER_ENABLE` setting.
-
-**Quick tutorial**
+Let's assume you wrote an article model which has an ``author`` attribute to store the creator of the article, and you want to give that author full control permissions
+(e.g. add, change and delete permissions).
 
 1.  Add ``import permission; permission.autodiscover()`` to your ``urls.py`` like:
 
@@ -123,13 +110,6 @@ Additionally, if the ``perms.py`` module has a ``PERMISSION_LOGICS`` variable, d
             ('your_app.Article', CollaboratorsPermissionLogic()),
         )
 
-You can specify a different module or variable name, with ``PERMISSION_AUTODISCOVER_MODULE_NAME`` or ``PERMISSION_AUTODISCOVER_VARIABLE_NAME`` respectively.
-
-Apply permission logic
-~~~~~~~~~~~~~~~~~~~~~~~~~
-Let's assume you wrote an article model which has an ``author`` attribute to store the creator of the article, and you want to give that author full control permissions
-(e.g. add, change and delete permissions).
-
 What you need to do is just applying ``permission.logics.AuthorPermissionLogic``
 to the ``Article`` model like
 
@@ -152,43 +132,6 @@ to the ``Article`` model like
     from permission import add_permission_logic
     from permission.logics import AuthorPermissionLogic
     add_permission_logic(Article, AuthorPermissionLogic())
-
-
-.. note::
-    You can specify related object with `field__name` attribute like
-    `django queryset lookup <https://docs.djangoproject.com/en/1.10/topics/db/queries/#field-lookups>`_.
-    See the working example below:
-
-.. code:: python
-
-    from django.db import models
-    from django.contrib.auth.models import User
-
-
-    class Article(models.Model):
-        title = models.CharField('title', max_length=120)
-        body = models.TextField('body')
-        project = models.ForeignKey('permission.Project')
-
-        # this is just required for easy explanation
-        class Meta:
-            app_label='permission'
-
-    class Project(models.Model):
-        title = models.CharField('title', max_length=120)
-        body = models.TextField('body')
-        author = models.ForeignKey(User)
-
-        # this is just required for easy explanation
-        class Meta:
-            app_label='permission'
-
-    # apply AuthorPermissionLogic to Article
-    from permission import add_permission_logic
-    from permission.logics import AuthorPermissionLogic
-    add_permission_logic(Article, AuthorPermissionLogic(
-        field_name='project__author',
-    ))
 
 
 That's it.
@@ -233,228 +176,6 @@ Now the following codes will work as expected:
     assert user2.has_perm('permission.delete_article') == False
     assert user2.has_perm('permission.delete_article', art1) == False
     assert user2.has_perm('permission.delete_article', art2) == True
-
-    #
-    # You may also be interested in django signals to apply 'add' permissions to the
-    # newly created users.
-    # https://docs.djangoproject.com/en/dev/ref/signals/#django.db.models.signals.post_save
-    #
-    from django.db.models.signals.post_save
-    from django.dispatch import receiver
-    from permission.utils.permissions import perm_to_permission
-
-    @receiver(post_save, sender=User)
-    def apply_permissions_to_new_user(sender, instance, created, **kwargs):
-        if not created:
-            return
-        #
-        # permissions you want to apply to the newly created user
-        # YOU SHOULD NOT APPLY PERMISSIONS EXCEPT PERMISSIONS FOR 'ADD'
-        # in this way, the applied permissions are not object permission so
-        # if you apply 'permission.change_article' then the user can change
-        # any article object.
-        #
-        permissions = [
-            'permission.add_article',
-        ]
-        for permission in permissions:
-            # apply permission
-            # perm_to_permission is a utility to convert string permission
-            # to permission instance.
-            instance.user_permissions.add(perm_to_permission(permission))
-
-
-See http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/author.html#AuthorPermissionLogic
-to learn how this logic works.
-
-Now, assume you add ``collaborators`` attribute to store collaborators
-of the article and you want to give them a change permission.
-
-What you need to do is quite simple.
-Apply ``permission.logics.CollaboratorsPermissionLogic``
-to the ``Article`` model as follows
-
-
-.. code:: python
-
-    from django.db import models
-    from django.contrib.auth.models import User
-
-
-    class Article(models.Model):
-        title = models.CharField('title', max_length=120)
-        body = models.TextField('body')
-        author = models.ForeignKey(User)
-        collaborators = models.ManyToManyField(User)
-
-        # this is just required for easy explanation
-        class Meta:
-            app_label='permission'
-
-    # apply AuthorPermissionLogic and CollaboratorsPermissionLogic
-    from permission import add_permission_logic
-    from permission.logics import AuthorPermissionLogic
-    from permission.logics import CollaboratorsPermissionLogic
-    add_permission_logic(Article, AuthorPermissionLogic())
-    add_permission_logic(Article, CollaboratorsPermissionLogic(
-        field_name='collaborators',
-        any_permission=False,
-        change_permission=True,
-        delete_permission=False,
-    ))
-
-
-.. note::
-    You can specify related object with `field_name` attribute like
-    `django queryset lookup <https://docs.djangoproject.com/en/1.10/topics/db/queries/#field-lookups>`_.
-    See the working example below:
-
-
-.. code:: python
-
-    from django.db import models
-    from django.contrib.auth.models import User
-
-
-    class Article(models.Model):
-        title = models.CharField('title', max_length=120)
-        body = models.TextField('body')
-        project = models.ForeignKey('permission.Project')
-
-        # this is just required for easy explanation
-        class Meta:
-            app_label='permission'
-
-    class Project(models.Model):
-        title = models.CharField('title', max_length=120)
-        body = models.TextField('body')
-        collaborators = models.ManyToManyField(User)
-
-        # this is just required for easy explanation
-        class Meta:
-            app_label='permission'
-
-    # apply AuthorPermissionLogic to Article
-    from permission import add_permission_logic
-    from permission.logics import CollaboratorsPermissionLogic
-    add_permission_logic(Article, CollaboratorsPermissionLogic(
-        field_name='project__collaborators',
-    ))
-
-
-That's it.
-Now the following codes will work as expected:
-
-
-.. code:: python
-
-    user1 = User.objects.create_user(
-        username='john',
-        email='john@test.com',
-        password='password',
-    )
-    user2 = User.objects.create_user(
-        username='alice',
-        email='alice@test.com',
-        password='password',
-    )
-
-    art1 = Article.objects.create(
-        title="Article 1",
-        body="foobar hogehoge",
-        author=user1
-    )
-    art1.collaborators.add(user2)
-
-    assert user1.has_perm('permission.change_article') == False
-    assert user1.has_perm('permission.change_article', art1) == True
-    assert user1.has_perm('permission.delete_article', art1) == True
-
-    assert user2.has_perm('permission.change_article') == False
-    assert user2.has_perm('permission.change_article', art1) == True
-    assert user2.has_perm('permission.delete_article', art1) == False
-
-
-See http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/collaborators.html#CollaboratorsPermissionLogic
-to learn how this logic works.
-
-There are `StaffPermissionLogic <http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/staff.html#StaffPermissionLogic>`_
-and `GroupInPermissionLogic <http://django-permission2.readthedocs.org/en/latest/_modules/permission/logics/groupin.html#GroupInPermissionLogic>`_
-for ``is_staff`` or ``group`` based permission logic as well.
-
-Customize permission logic
-............................
-Your own permission logic class must be a subclass of
-``permission.logics.PermissionLogic`` and must override
-``has_perm(user_obj, perm, obj=None)`` method which return boolean value.
-
-Class, method, or function decorator
--------------------------------------
-Like Django's ``permission_required`` but it can be used for object permissions
-and as a class, method, or function decorator.
-Also, you don't need to specify a object to this decorator for object permission.
-This decorator automatically determined the object from request
-(so you cannnot use this decorator for non view class/method/function but you
-anyway use ``user.has_perm`` in that case).
-
-
-.. code:: python
-
-    >>> from permission.decorators import permission_required
-    >>> # As class decorator
-    >>> @permission_required('auth.change_user')
-    >>> class UpdateAuthUserView(UpdateView):
-    ...     pass
-    >>> # As method decorator
-    >>> class UpdateAuthUserView(UpdateView):
-    ...     @permission_required('auth.change_user')
-    ...     def dispatch(self, request, *args, **kwargs):
-    ...         pass
-    >>> # As function decorator
-    >>> @permission_required('auth.change_user')
-    >>> def update_auth_user(request, *args, **kwargs):
-    ...     pass
-
-
-Override the builtin ``if`` template tag
-----------------------------------------
-django-permission2 overrides the builtin ``if`` tag, adding two operators to handle
-permissions in templates.
-You can write a permission test by using ``has`` keyword, and a target object with ``of`` as below.
-
-
-.. code:: html
-
-    {% if user has 'blogs.add_article' %}
-        <p>This user have 'blogs.add_article' permission</p>
-    {% elif user has 'blog.change_article' of object %}
-        <p>This user have 'blogs.change_article' permission of {{object}}</p>
-    {% endif %}
-
-    {# If you set 'PERMISSION_REPLACE_BUILTIN_IF = False' in settings #}
-    {% permission user has 'blogs.add_article' %}
-        <p>This user have 'blogs.add_article' permission</p>
-    {% elpermission user has 'blog.change_article' of object %}
-        <p>This user have 'blogs.change_article' permission of {{object}}</p>
-    {% endpermission %}
-
-.. note::
-    You have to add `'permission.templatetags.permissionif'` to `'builtins'` option manually.
-    See
-    - https://docs.djangoproject.com/en/1.9/releases/1.9/#django-template-base-add-to-builtins-is-removed
-    - https://docs.djangoproject.com/en/1.9/topics/templates/#module-django.template.backends.django
-    Or following example:
-
-    .. code:: python
-
-        TEMPLATES = [
-            {
-                'BACKEND': 'django.template.backends.django.DjangoTemplates',
-                'OPTIONS': {
-                    'builtins': ['permission.templatetags.permissionif'],
-                },
-            },
-        ]
 
 License
 -------------------------------------------------------------------------------
