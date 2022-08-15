@@ -117,6 +117,9 @@ category = "dev"
 optional = false
 python-versions = ">=3.7"
 
+[package.dependencies]
+tomli = {version = "*", optional = true, markers = "python_full_version <= \"3.11.0a6\" and extra == \"toml\""}
+
 [package.extras]
 toml = ["tomli"]
 
@@ -642,7 +645,7 @@ docs = ["Sphinx", "sphinx-rtd-theme"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "59dd0a49a2e34a92bca75d119116aefce7d95c9e5b9cf3e60ca3f376c1527373"
+content-hash = "6ec126f125b8e2892f829f76c90a037cd9763997a3a8b1d587569356b2ff6373"
 
 [metadata.files]
 alabaster = [
