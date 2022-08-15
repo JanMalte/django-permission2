@@ -34,7 +34,7 @@ to handle complex permissions in Django.
 
 Documentation
 -------------
-http://django-permission2.readthedocs.org/en/latest/
+http://django-permission2.readthedocs.org/
 
 Installation
 ------------
