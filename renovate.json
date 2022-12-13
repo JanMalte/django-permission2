@@ -13,7 +13,7 @@
     "automerge": true
   },
   "platformAutomerge": true,
-  "rebaseWhen": "conflicted",
+  "rebaseWhen": "behind-base-branch",
   "pre-commit": {
     "enabled": true
   }
