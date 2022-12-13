@@ -6,6 +6,9 @@
   "major": {
     "dependencyDashboardApproval": true
   },
+  "minor": {
+    "automerge": true
+  },
   "patch": {
     "automerge": true
   },
