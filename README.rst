@@ -18,6 +18,9 @@ django-permission2
 .. image:: https://readthedocs.org/projects/django-permission2/badge/?version=latest
     :target: https://django-permission2.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
+.. image:: https://github.com/JanMalte/django-permission2/actions/workflows/run-tests.yml/badge.svg
+    :target: https://github.com/JanMalte/django-permission2/actions/workflows/run-tests.yml
+    :alt: run tests
 
 Author
     Malte Gerth <mail@malte-gerth.de>
