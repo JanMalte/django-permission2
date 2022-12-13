@@ -20,7 +20,7 @@ django-permission2
     :alt: Documentation Status
 .. image:: https://github.com/JanMalte/django-permission2/actions/workflows/run-tests.yml/badge.svg
     :target: https://github.com/JanMalte/django-permission2/actions/workflows/run-tests.yml
-    :alt: run tests
+    :alt: tests
 
 Author
     Malte Gerth <mail@malte-gerth.de>
