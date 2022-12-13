@@ -6,6 +6,10 @@
   "major": {
     "dependencyDashboardApproval": true
   },
+  "patch": {
+    "automerge": true
+  },
+  "platformAutomerge": true,
   "rebaseWhen": "conflicted",
   "pre-commit": {
     "enabled": true
