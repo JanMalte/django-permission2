@@ -89,17 +89,19 @@ Let's assume you wrote an article model which has an ``author`` attribute to sto
 
     .. code:: python
 
-        from django.conf.urls import patterns, include, url
+        from django.conf.urls import patterns, include
+        from django.urls import path
         from django.contrib import admin
 
         admin.autodiscover()
-        # add this line
+
+        # only add the following line
         import permission; permission.autodiscover()
 
-        urlpatterns = patterns('',
-            url(r'^admin/', include(admin.site.urls)),
+        urlpatterns = [
+            path('admin/', include(admin.site.urls)),
             # ...
-        )
+        ]
 
 2.  Write ``perms.py`` in your application directory like:
 
