@@ -916,14 +916,14 @@ files = [
 
 [[package]]
 name = "tox"
-version = "4.0.12"
+version = "4.0.13"
 description = "tox is a generic virtualenv management and test command line tool"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "tox-4.0.12-py3-none-any.whl", hash = "sha256:a22bb3839d3977a7afac924d6fa07fd33ddb0d5d377bedecd9d7069b4a06d53e"},
-    {file = "tox-4.0.12.tar.gz", hash = "sha256:7c99041b77a0b88f70a61697f6af4c8d3d0c578a6f4b8dfeab4387585d1c7372"},
+    {file = "tox-4.0.13-py3-none-any.whl", hash = "sha256:ce3f3eb90eedd04bdcbd687ca51703ae80c5664b823377e93fcd5e50d6573bd9"},
+    {file = "tox-4.0.13.tar.gz", hash = "sha256:2830e668374ab1c484964f2d0e3d6f8fcfa170c5c388ec54d47fa359ea996715"},
 ]
 
 [package.dependencies]
@@ -942,7 +942,7 @@ virtualenv = ">=20.17.1"
 
 [package.extras]
 docs = ["furo (>=2022.12.7)", "sphinx (>=5.3)", "sphinx-argparse-cli (>=1.10)", "sphinx-autodoc-typehints (>=1.19.5)", "sphinx-copybutton (>=0.5.1)", "sphinx-inline-tabs (>=2022.1.2b11)", "sphinxcontrib-towncrier (>=0.2.1a0)", "towncrier (>=22.8)"]
-testing = ["build[virtualenv] (>=0.9)", "covdefaults (>=2.2.2)", "devpi-process (>=0.3)", "diff-cover (>=7.2)", "distlib (>=0.3.6)", "flaky (>=3.7)", "hatch-vcs (>=0.2.1)", "hatchling (>=1.11.1)", "psutil (>=5.9.4)", "pytest (>=7.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest-xdist (>=3.1)", "re-assert (>=1.1)", "time-machine (>=2.8.2)"]
+testing = ["build[virtualenv] (>=0.9)", "covdefaults (>=2.2.2)", "devpi-process (>=0.3)", "diff-cover (>=7.3)", "distlib (>=0.3.6)", "flaky (>=3.7)", "hatch-vcs (>=0.2.1)", "hatchling (>=1.11.1)", "psutil (>=5.9.4)", "pytest (>=7.2)", "pytest-cov (>=4)", "pytest-mock (>=3.10)", "pytest-xdist (>=3.1)", "re-assert (>=1.1)", "time-machine (>=2.8.2)"]
 
 [[package]]
 name = "typed-ast"
@@ -1051,4 +1051,4 @@ docs = ["Sphinx", "sphinx-rtd-theme"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.7"
-content-hash = "7ec8dd2a3b953b54cbf56cd76b892bd0aaf12d7aca122bbc2b56c7242d986c24"
+content-hash = "5b84f89d4603f4a3a87aae505ceaedb1021245303f256ef39726f8ffb5320ee8"
