@@ -48,7 +48,7 @@ sphinx-rtd-theme = {version = "1.1.1", optional = true}
 
 [tool.poetry.dev-dependencies]
 Django = "3.2.16"
-tox = "4.2.5"
+tox = "4.2.6"
 coverage = {extras = ["toml"], version = "^6.4.3"}
 pre-commit = "^2.20.0"
 black = "^22.6.0"
