@@ -95,8 +95,8 @@ Now the following codes will work as expected:
         author=user2
     )
 
-    # You have to apply 'permission.add_article' to users manually because it
-    # is not an object permission.
+    # Grant the `permission.add_article` permission for user1.
+    # Use the `perm_to_permission` utility to convert the permission-string to a `Permission` object instance.
     from permission.utils.permissions import perm_to_permission
     user1.user_permissions.add(perm_to_permission('permission.add_article'))
 
