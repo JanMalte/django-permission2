@@ -100,14 +100,31 @@ Now the following codes will work as expected:
     from permission.utils.permissions import perm_to_permission
     user1.user_permissions.add(perm_to_permission('permission.add_article'))
 
+    # `add_article` is granted by user permissions
     assert user1.has_perm('permission.add_article') == True
+    assert user2.has_perm('permission.add_article') == False
+
+    # `change_article` is not granted by user permissions
     assert user1.has_perm('permission.change_article') == False
+    assert user2.has_perm('permission.change_article') == False
+
+    # `change_article` is granted by `AuthorPermissionLogic`
     assert user1.has_perm('permission.change_article', art1) == True
+    # `change_article` is not granted by `AuthorPermissionLogic`
     assert user1.has_perm('permission.change_article', art2) == False
 
-    assert user2.has_perm('permission.add_article') == False
+    # `delete_article` is not granted by user permissions
+    assert user1.has_perm('permission.delete_article') == False
     assert user2.has_perm('permission.delete_article') == False
+
+    # `delete_article` is granted by `AuthorPermissionLogic`
+    assert user1.has_perm('permission.delete_article', art1) == True
+    # `delete_article` is not granted by `AuthorPermissionLogic`
+    assert user1.has_perm('permission.delete_article', art2) == False
+
+    # `delete_article` is not granted by `AuthorPermissionLogic`
     assert user2.has_perm('permission.delete_article', art1) == False
+    # `delete_article` is granted by `AuthorPermissionLogic`
     assert user2.has_perm('permission.delete_article', art2) == True
 
     #
