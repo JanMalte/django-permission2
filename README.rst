@@ -29,7 +29,7 @@ Original Author
 Supported python versions
     Python 3.8, 3.9, 3.10, 3.11
 Supported django versions
-    Django 2.2, 3.2, 4.0, 4.1
+    Django 2.2, 3.2, 4.0, 4.1, 4.2
 
 An enhanced permission library which enables a *logic-based permission system*
 to handle complex permissions in Django.
