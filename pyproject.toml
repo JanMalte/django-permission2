@@ -51,7 +51,7 @@ Django = "3.2.20"
 tox = "4.6.4"
 coverage = {extras = ["toml"], version = "^7.0.0"}
 pre-commit = "^2.20.0"
-black = "^22.6.0"
+black = "^23.0.0"
 isort = "^5.10.1"
 
 [tool.poetry.extras]
