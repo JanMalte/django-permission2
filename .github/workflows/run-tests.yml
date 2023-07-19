@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   unit-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11"]
@@ -26,7 +26,7 @@ jobs:
         run: tox -e $(tox -l | grep "py${{ matrix.python-version }}" | paste -sd "," -)
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
 
@@ -48,7 +48,7 @@ jobs:
         run: poetry run pre-commit run --all-files
 
   docs:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
 
