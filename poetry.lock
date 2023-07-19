@@ -12,18 +12,6 @@ files = [
 ]
 
 [[package]]
-name = "app-version"
-version = "1.0.1"
-description = "A tiny utility to get application version from pkg_resouces"
-optional = false
-python-versions = "*"
-files = [
-    {file = "app_version-1.0.1-py2-none-any.whl", hash = "sha256:aeecceebf20f0935dadeb4aa246a962c5d99b6ccba623b433d0c3952d0964a22"},
-    {file = "app_version-1.0.1-py3-none-any.whl", hash = "sha256:c38bd6931565b9a972961ef19f1ab8aa80748d68c0153000116800b7ce5678a8"},
-    {file = "app_version-1.0.1.tar.gz", hash = "sha256:c21f6ea7e97092ba9a28dd6f884766647888273cbda8bde8f108f9657d5b4bff"},
-]
-
-[[package]]
 name = "asgiref"
 version = "3.5.2"
 description = "ASGI specs, helper code, and adapters"
@@ -960,4 +948,4 @@ docs = ["Sphinx", "sphinx-rtd-theme"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "7debce0051c1e0b3618d470be52c344febb63a1ebcf9b11d85e305206a1a015f"
+content-hash = "c7f5746523988ef9e21bd0238ddf57f7572f95ccfbe04d527050c6f4552652eb"

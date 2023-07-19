@@ -1,6 +1,6 @@
-from app_version import get_versions
+import importlib.metadata
 
-__version__, VERSION = get_versions("django-permission2", allow_ambiguous=True)
+__version__ = importlib.metadata.version("django-permission2")
 
 from django.core.exceptions import ImproperlyConfigured
 
