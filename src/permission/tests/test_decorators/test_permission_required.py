@@ -67,7 +67,6 @@ class PermissionDecoratorsTestCase(TestCase):
         registry._registry = self._original_registry
 
     def test_function_views(self):
-
         # class decorator cannot handle
         self.assertRaises(AttributeError, c, view_func)
         # method decorator can handle

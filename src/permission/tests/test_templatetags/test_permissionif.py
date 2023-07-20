@@ -195,7 +195,6 @@ class PermissionTemplateTagsTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_or(self):
-
         user = create_user("permission_templatetag_test_user1")
         perm1 = create_permission("permission_templatetag_test_perm1")
         create_permission("permission_templatetag_test_perm2")
@@ -410,7 +409,6 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         self.assertEqual(out, "Success")
 
     def test_permissionif_tag_or(self):
-
         user = create_user("permission_templatetag_test_user1")
         perm1 = create_permission("permission_templatetag_test_perm1")
         create_permission("permission_templatetag_test_perm2")
