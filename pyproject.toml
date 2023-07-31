@@ -50,7 +50,7 @@ sphinx-rtd-theme = {version = "1.2.2", optional = true}
 Django = "3.2.20"
 tox = "4.6.4"
 coverage = {extras = ["toml"], version = "^7.0.0"}
-pre-commit = "^2.20.0"
+pre-commit = "^3.0.0"
 black = "^23.0.0"
 isort = "^5.10.1"
 
