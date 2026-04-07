@@ -30,9 +30,7 @@ class PermissionUtilsHandlersTestCase(TestCase):
         abstract_model = MagicMock()
         abstract_model._meta = MagicMock()
         abstract_model._meta.abstract = True
-        self.assertRaises(
-            ImproperlyConfigured, self.registry.register, abstract_model, self.handler
-        )
+        self.assertRaises(ImproperlyConfigured, self.registry.register, abstract_model, self.handler)
 
     def test_register_duplicate(self):
         self.registry.register(self.model, self.handler)
@@ -40,14 +38,10 @@ class PermissionUtilsHandlersTestCase(TestCase):
 
     def test_register_permission_handler_instance(self):
         handler_instance = self.handler(self.model)
-        self.assertRaises(
-            AttributeError, self.registry.register, self.model, handler_instance
-        )
+        self.assertRaises(AttributeError, self.registry.register, self.model, handler_instance)
 
     def test_register_non_permission_handler(self):
-        self.assertRaises(
-            AttributeError, self.registry.register, self.model, self.__class__
-        )
+        self.assertRaises(AttributeError, self.registry.register, self.model, self.__class__)
 
     def test_unregister(self):
         self.registry.register(self.model, self.handler)

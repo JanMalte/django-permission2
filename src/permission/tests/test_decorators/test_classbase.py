@@ -23,12 +23,10 @@ class PermissionClassDecoratorsTestCase(TestCase):
         self.queryset = create_mock_queryset(self.model_instance)
 
         self.view_func = create_mock_view_func()
-        self.view_class = permission_required("permission.add_article")(
+        self.view_class = permission_required("permission.add_article")(create_mock_view_class(self.view_func))
+        self.view_class_exc = permission_required("permission.add_article", raise_exception=True)(
             create_mock_view_class(self.view_func)
         )
-        self.view_class_exc = permission_required(
-            "permission.add_article", raise_exception=True
-        )(create_mock_view_class(self.view_func))
 
         # store original registry
         self._original_registry = registry._registry
@@ -64,9 +62,7 @@ class PermissionClassDecoratorsTestCase(TestCase):
         )
         self.assertFalse(self.view_func.called)
 
-        self.assertRaises(
-            PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1
-        )
+        self.assertRaises(PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1)
         self.assertFalse(self.view_func.called)
 
         # has_perm always return True
@@ -99,9 +95,7 @@ class PermissionClassDecoratorsTestCase(TestCase):
         )
         self.assertFalse(self.view_func.called)
 
-        self.assertRaises(
-            PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1
-        )
+        self.assertRaises(PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1)
         self.assertFalse(self.view_func.called)
 
         # has_perm always return True
@@ -119,7 +113,9 @@ class PermissionClassDecoratorsTestCase(TestCase):
 
     def test_with_queryset(self):
         # set object
-        get_object = lambda x, y: y.get(*x.args, **x.kwargs)
+        def get_object(x, y):
+            return y.get(*x.args, **x.kwargs)
+
         self.view_class.get_object = get_object
         self.view_class_exc.get_object = get_object
         self.view_class.queryset = self.queryset
@@ -137,9 +133,7 @@ class PermissionClassDecoratorsTestCase(TestCase):
         )
         self.assertFalse(self.view_func.called)
 
-        self.assertRaises(
-            PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1
-        )
+        self.assertRaises(PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1)
         self.assertFalse(self.view_func.called)
 
         # has_perm always return True
@@ -157,7 +151,9 @@ class PermissionClassDecoratorsTestCase(TestCase):
 
     def test_with_get_queryset(self):
         # set object
-        get_object = lambda x, y: y.get(*x.args, **x.kwargs)
+        def get_object(x, y):
+            return y.get(*x.args, **x.kwargs)
+
         self.view_class.get_object = get_object
         self.view_class_exc.get_object = get_object
         self.view_class.get_queryset = MagicMock(return_value=self.queryset)
@@ -175,9 +171,7 @@ class PermissionClassDecoratorsTestCase(TestCase):
         )
         self.assertFalse(self.view_func.called)
 
-        self.assertRaises(
-            PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1
-        )
+        self.assertRaises(PermissionDenied, self.view_class_exc.as_view(), self.request, pk=1)
         self.assertFalse(self.view_func.called)
 
         # has_perm always return True

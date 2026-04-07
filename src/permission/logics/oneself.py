@@ -1,7 +1,7 @@
-# coding=utf-8
 """
 Permission logic module to  manage users' self-modifications
 """
+
 from permission.compat import is_authenticated
 from permission.conf import settings
 from permission.logics.base import PermissionLogic
@@ -15,9 +15,7 @@ class OneselfPermissionLogic(PermissionLogic):
     https://github.com/lambdalisue/django-permission/pull/27
     """
 
-    def __init__(
-        self, any_permission=None, change_permission=None, delete_permission=None
-    ):
+    def __init__(self, any_permission=None, change_permission=None, delete_permission=None):
         """
         Constructor
 

@@ -1,7 +1,7 @@
-# coding=utf-8
 """
 Permission logic module
 """
+
 from permission.logics.author import AuthorPermissionLogic
 from permission.logics.base import PermissionLogic
 from permission.logics.collaborators import CollaboratorsPermissionLogic

@@ -1,8 +1,6 @@
 import os
 from os.path import dirname
 
-from django import VERSION
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = dirname(os.path.abspath(__file__))
 
@@ -67,7 +65,6 @@ DATABASES = {
         "NAME": ":memory:",
     }
 }
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -89,6 +86,5 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_L10N = True
 
 USE_TZ = True

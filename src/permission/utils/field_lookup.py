@@ -1,5 +1,4 @@
 """A module to lookup field of object."""
-from __future__ import unicode_literals
 
 from collections.abc import Iterable
 

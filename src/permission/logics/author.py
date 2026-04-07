@@ -1,7 +1,7 @@
-# coding=utf-8
 """
 Permission logic module for author based permission system
 """
+
 from permission.compat import is_authenticated
 from permission.conf import settings
 from permission.logics.base import PermissionLogic

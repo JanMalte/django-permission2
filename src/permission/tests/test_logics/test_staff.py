@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.test import TestCase, override_settings
 
 from ...logics import StaffPermissionLogic
@@ -78,25 +77,19 @@ class PermissionLogicsStaffPermissionLogicTestCase(TestCase):
         permission_logic = StaffPermissionLogic()
         add_permission_logic(self.article.__class__, permission_logic)
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm1, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm1, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm1, self.article))
 
     def test_has_perm_change_with_obj(self):
         permission_logic = StaffPermissionLogic()
         add_permission_logic(self.article.__class__, permission_logic)
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm2, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm2, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm2, self.article))
 
     def test_has_perm_delete_with_obj(self):
         permission_logic = StaffPermissionLogic()
         add_permission_logic(self.article.__class__, permission_logic)
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm3, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm3, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm3, self.article))
 
     def test_has_perm_add_without_obj_with_anonymous(self):
         permission_logic = StaffPermissionLogic()
@@ -116,23 +109,17 @@ class PermissionLogicsStaffPermissionLogicTestCase(TestCase):
     def test_has_perm_add_with_obj_with_anonymous(self):
         permission_logic = StaffPermissionLogic()
         add_permission_logic(self.article.__class__, permission_logic)
-        self.assertFalse(
-            permission_logic.has_perm(self.anonymous, self.perm1, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.anonymous, self.perm1, self.article))
 
     def test_has_perm_change_with_obj_with_anonymous(self):
         permission_logic = StaffPermissionLogic()
         add_permission_logic(self.article.__class__, permission_logic)
-        self.assertFalse(
-            permission_logic.has_perm(self.anonymous, self.perm2, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.anonymous, self.perm2, self.article))
 
     def test_has_perm_delete_with_obj_with_anonymous(self):
         permission_logic = StaffPermissionLogic()
         add_permission_logic(self.article.__class__, permission_logic)
-        self.assertFalse(
-            permission_logic.has_perm(self.anonymous, self.perm3, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.anonymous, self.perm3, self.article))
 
     def test_has_perm_add_without_obj_without_any(self):
         permission_logic = StaffPermissionLogic(any_permission=False)
@@ -156,22 +143,16 @@ class PermissionLogicsStaffPermissionLogicTestCase(TestCase):
         permission_logic = StaffPermissionLogic(any_permission=False)
         add_permission_logic(self.article.__class__, permission_logic)
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm1, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm1, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm1, self.article))
 
     def test_has_perm_change_with_obj_without_any(self):
         permission_logic = StaffPermissionLogic(any_permission=False)
         add_permission_logic(self.article.__class__, permission_logic)
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm2, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm2, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm2, self.article))
 
     def test_has_perm_delete_with_obj_without_any(self):
         permission_logic = StaffPermissionLogic(any_permission=False)
         add_permission_logic(self.article.__class__, permission_logic)
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm3, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm3, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm3, self.article))

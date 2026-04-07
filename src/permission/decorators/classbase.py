@@ -1,7 +1,7 @@
-# coding=utf-8
 """
 permission_required decorator for generic classbased view from django 1.3
 """
+
 from functools import wraps
 
 from django.core.exceptions import PermissionDenied
@@ -43,9 +43,7 @@ def permission_required(perm, queryset=None, login_url=None, raise_exception=Fal
             @wraps(view_func)
             def inner(self, request, *args, **kwargs):
                 # get object
-                obj = get_object_from_classbased_instance(
-                    self, queryset, request, *args, **kwargs
-                )
+                obj = get_object_from_classbased_instance(self, queryset, request, *args, **kwargs)
 
                 if not request.user.has_perm(perm, obj=obj):
                     if raise_exception:

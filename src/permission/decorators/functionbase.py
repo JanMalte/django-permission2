@@ -1,7 +1,7 @@
-# coding=utf-8
 """
 permission_required decorator for generic function view
 """
+
 import copy
 from functools import wraps
 
@@ -92,10 +92,7 @@ def get_object_from_list_detail_view(request, *args, **kwargs):
     elif slug and slug_field:
         obj = get_object_or_404(queryset, **{slug_field: slug})
     else:
-        raise AttributeError(
-            "Generic detail view must be called with either an "
-            "object_id or a slug/slug_field."
-        )
+        raise AttributeError("Generic detail view must be called with either an object_id or a slug/slug_field.")
     return obj
 
 
@@ -147,8 +144,8 @@ def get_object_from_date_based_view(request, *args, **kwargs):  # noqa
 
     try:
         tt = time.strptime(
-            "%s-%s-%s" % (year, month, day),
-            "%s-%s-%s" % ("%Y", month_format, day_format),
+            f"{year}-{month}-{day}",
+            "{}-{}-{}".format("%Y", month_format, day_format),
         )
         date = datetime.date(*tt[:3])
     except ValueError:
@@ -158,8 +155,7 @@ def get_object_from_date_based_view(request, *args, **kwargs):  # noqa
 
     if isinstance(model._meta.get_field(date_field), DateTimeField):
         lookup_kwargs = {
-            "%s__range"
-            % date_field: (
+            f"{date_field}__range": (
                 datetime.datetime.combine(date, datetime.time.min),
                 datetime.datetime.combine(date, datetime.time.max),
             )
@@ -169,16 +165,13 @@ def get_object_from_date_based_view(request, *args, **kwargs):  # noqa
 
     now = datetime_now()
     if date >= now.date() and not kwargs.get("allow_future", False):
-        lookup_kwargs["%s__lte" % date_field] = now
+        lookup_kwargs[f"{date_field}__lte"] = now
     if object_id:
         lookup_kwargs["pk"] = object_id
     elif slug and slug_field:
-        lookup_kwargs["%s__exact" % slug_field] = slug
+        lookup_kwargs[f"{slug_field}__exact"] = slug
     else:
-        raise AttributeError(
-            "Generic detail view must be called with either an "
-            "object_id or a slug/slug_field."
-        )
+        raise AttributeError("Generic detail view must be called with either an object_id or a slug/slug_field.")
     return get_object_or_404(queryset, **lookup_kwargs)
 
 

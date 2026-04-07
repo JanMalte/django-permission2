@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.test import TestCase
 
 from ...logics import PermissionLogic
@@ -19,21 +18,15 @@ class PermissionLogicsPermissionLogicTestCase(TestCase):
 
     def test_has_perm_add_wihtout_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(
-            NotImplementedError, permission_logic.has_perm, self.user, self.perm1
-        )
+        self.assertRaises(NotImplementedError, permission_logic.has_perm, self.user, self.perm1)
 
     def test_has_perm_change_wihtout_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(
-            NotImplementedError, permission_logic.has_perm, self.user, self.perm2
-        )
+        self.assertRaises(NotImplementedError, permission_logic.has_perm, self.user, self.perm2)
 
     def test_has_perm_delete_wihtout_obj(self):
         permission_logic = PermissionLogic()
-        self.assertRaises(
-            NotImplementedError, permission_logic.has_perm, self.user, self.perm3
-        )
+        self.assertRaises(NotImplementedError, permission_logic.has_perm, self.user, self.perm3)
 
     def test_has_perm_add_wiht_obj(self):
         permission_logic = PermissionLogic()

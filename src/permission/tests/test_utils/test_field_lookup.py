@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.test import TestCase
 
 from ...utils.field_lookup import field_lookup
@@ -13,9 +12,7 @@ class PermissionUtilsFieldLookupTestCase(TestCase):
         self.bridge1 = create_bridge()
         self.bridge2 = create_bridge()
         self.bridge3 = create_bridge()
-        self.model = create_article(
-            "permission_test_article", self.author, self.bridge1
-        )
+        self.model = create_article("permission_test_article", self.author, self.bridge1)
         self.model.editors.add(self.editor1)
         self.model.editors.add(self.editor2)
         self.model.multiple_bridge.add(self.bridge2)
@@ -67,9 +64,7 @@ class PermissionUtilsFieldLookupTestCase(TestCase):
     def test_field_lookup_multiple_bridge_author_username(self):
         field_value = field_lookup(self.model, "multiple_bridge__author__username")
         field_value = list(field_value)
-        expected_value = [
-            x.username for x in (self.bridge2.author, self.bridge3.author)
-        ]
+        expected_value = [x.username for x in (self.bridge2.author, self.bridge3.author)]
         self.assertEqual(field_value, expected_value)
 
     def test_field_lookup_multiple_bridge_editors(self):

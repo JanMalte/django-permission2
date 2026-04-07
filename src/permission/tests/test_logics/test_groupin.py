@@ -1,9 +1,7 @@
-# coding=utf-8
 from django.test import TestCase, override_settings
 
 from ...logics import GroupInPermissionLogic
 from ...utils.logics import add_permission_logic
-from ..compat import MagicMock
 from ..utils import create_anonymous, create_article, create_group, create_user
 
 
@@ -102,36 +100,24 @@ class PermissionLogicsAuthorPermissionLogicTestCase(TestCase):
         add_permission_logic(self.article.__class__, permission_logic)
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm1, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm1, self.article)
-        )
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm1, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm1, self.article))
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm1, self.article))
 
     def test_has_perm_change_with_obj(self):
         permission_logic = GroupInPermissionLogic("admin")
         add_permission_logic(self.article.__class__, permission_logic)
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm2, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm2, self.article)
-        )
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm2, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm2, self.article))
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm2, self.article))
 
     def test_has_perm_delete_with_obj(self):
         permission_logic = GroupInPermissionLogic("admin")
         add_permission_logic(self.article.__class__, permission_logic)
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm3, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm3, self.article)
-        )
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm3, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm3, self.article))
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm3, self.article))
 
     def test_has_perm_add_without_obj_with_anonymous(self):
         permission_logic = GroupInPermissionLogic("admin")
@@ -151,23 +137,17 @@ class PermissionLogicsAuthorPermissionLogicTestCase(TestCase):
     def test_has_perm_add_with_obj_with_anonymous(self):
         permission_logic = GroupInPermissionLogic("admin")
         add_permission_logic(self.article.__class__, permission_logic)
-        self.assertFalse(
-            permission_logic.has_perm(self.anonymous, self.perm1, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.anonymous, self.perm1, self.article))
 
     def test_has_perm_change_with_obj_with_anonymous(self):
         permission_logic = GroupInPermissionLogic("admin")
         add_permission_logic(self.article.__class__, permission_logic)
-        self.assertFalse(
-            permission_logic.has_perm(self.anonymous, self.perm2, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.anonymous, self.perm2, self.article))
 
     def test_has_perm_delete_with_obj_with_anonymous(self):
         permission_logic = GroupInPermissionLogic("admin")
         add_permission_logic(self.article.__class__, permission_logic)
-        self.assertFalse(
-            permission_logic.has_perm(self.anonymous, self.perm3, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.anonymous, self.perm3, self.article))
 
     def test_has_perm_add_without_obj_with_two_groups(self):
         permission_logic = GroupInPermissionLogic(["admin", "staff"])
@@ -199,9 +179,7 @@ class PermissionLogicsAuthorPermissionLogicTestCase(TestCase):
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm1, self.article))
         self.assertTrue(permission_logic.has_perm(self.user2, self.perm1, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm1, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm1, self.article))
 
     def test_has_perm_change_with_obj_with_two_groups(self):
         permission_logic = GroupInPermissionLogic(["admin", "staff"])
@@ -209,9 +187,7 @@ class PermissionLogicsAuthorPermissionLogicTestCase(TestCase):
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm2, self.article))
         self.assertTrue(permission_logic.has_perm(self.user2, self.perm2, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm2, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm2, self.article))
 
     def test_has_perm_delete_with_obj_with_two_groups(self):
         permission_logic = GroupInPermissionLogic(["admin", "staff"])
@@ -219,9 +195,7 @@ class PermissionLogicsAuthorPermissionLogicTestCase(TestCase):
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm3, self.article))
         self.assertTrue(permission_logic.has_perm(self.user2, self.perm3, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm3, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm3, self.article))
 
     def test_has_perm_add_without_obj_without_any_permission(self):
         permission_logic = GroupInPermissionLogic("admin", any_permission=False)
@@ -252,33 +226,21 @@ class PermissionLogicsAuthorPermissionLogicTestCase(TestCase):
         add_permission_logic(self.article.__class__, permission_logic)
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm1, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm1, self.article)
-        )
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm1, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm1, self.article))
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm1, self.article))
 
     def test_has_perm_change_with_obj_without_any_permission(self):
         permission_logic = GroupInPermissionLogic("admin", any_permission=False)
         add_permission_logic(self.article.__class__, permission_logic)
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm2, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm2, self.article)
-        )
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm2, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm2, self.article))
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm2, self.article))
 
     def test_has_perm_delete_with_obj_without_any_permission(self):
         permission_logic = GroupInPermissionLogic("admin", any_permission=False)
         add_permission_logic(self.article.__class__, permission_logic)
 
         self.assertTrue(permission_logic.has_perm(self.user1, self.perm3, self.article))
-        self.assertFalse(
-            permission_logic.has_perm(self.user2, self.perm3, self.article)
-        )
-        self.assertFalse(
-            permission_logic.has_perm(self.user3, self.perm3, self.article)
-        )
+        self.assertFalse(permission_logic.has_perm(self.user2, self.perm3, self.article))
+        self.assertFalse(permission_logic.has_perm(self.user3, self.perm3, self.article))

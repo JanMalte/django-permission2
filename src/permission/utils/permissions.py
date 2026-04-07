@@ -1,11 +1,9 @@
-# coding=utf-8
 """
 Permission utility module.
 
 In this module, term *perm* indicate the identifier string permission written
 in 'app_label.codename' format.
 """
-from __future__ import unicode_literals
 
 
 def get_perm_codename(perm, fail_silently=True):
@@ -48,7 +46,7 @@ def permission_to_perm(permission):
     """
     app_label = permission.content_type.app_label
     codename = permission.codename
-    return "%s.%s" % (app_label, codename)
+    return f"{app_label}.{codename}"
 
 
 def perm_to_permission(perm):
@@ -69,13 +67,10 @@ def perm_to_permission(perm):
         app_label, codename = perm.split(".", 1)
     except (ValueError, IndexError):
         raise AttributeError(
-            "The format of identifier string permission (perm) is wrong. "
-            "It should be in 'app_label.codename'."
+            "The format of identifier string permission (perm) is wrong. It should be in 'app_label.codename'."
         )
     else:
-        permission = Permission.objects.get(
-            content_type__app_label=app_label, codename=codename
-        )
+        permission = Permission.objects.get(content_type__app_label=app_label, codename=codename)
         return permission
 
 
@@ -109,7 +104,7 @@ def get_app_perms(model_or_app_label):
         # assume model_or_app_label is model class
         app_label = model_or_app_label._meta.app_label
     qs = Permission.objects.filter(content_type__app_label=app_label)
-    perms = ("%s.%s" % (app_label, p.codename) for p in qs.iterator())
+    perms = (f"{app_label}.{p.codename}" for p in qs.iterator())
     return set(perms)
 
 
@@ -140,8 +135,6 @@ def get_model_perms(model):
 
     app_label = model._meta.app_label
     model_name = model._meta.object_name.lower()
-    qs = Permission.objects.filter(
-        content_type__app_label=app_label, content_type__model=model_name
-    )
-    perms = ("%s.%s" % (app_label, p.codename) for p in qs.iterator())
+    qs = Permission.objects.filter(content_type__app_label=app_label, content_type__model=model_name)
+    perms = (f"{app_label}.{p.codename}" for p in qs.iterator())
     return set(perms)

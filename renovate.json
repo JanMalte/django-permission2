@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
+  "extends": ["config:recommended"],
+  "minimumReleaseAge": "4 days",
+  "minimumReleaseAgeBehaviour": "timestamp-optional",
   "dependencyDashboard": true,
   "separateMultipleMajor": true,
   "major": {
@@ -12,9 +14,18 @@
   "patch": {
     "automerge": true
   },
+  "digest": { "automerge": true },
   "platformAutomerge": true,
   "rebaseWhen": "behind-base-branch",
   "pre-commit": {
-    "enabled": true
-  }
+    "enabled": true,
+    "pinDigests": false
+  },
+  "pinDigests": true,
+  "osvVulnerabilityAlerts": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  },
+  "semanticCommits": "enabled"
 }
