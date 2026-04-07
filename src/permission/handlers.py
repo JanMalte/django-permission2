@@ -1,10 +1,9 @@
-# coding=utf-8
 from collections.abc import Callable
 
 from permission.utils.permissions import get_app_perms, get_model_perms
 
 
-class PermissionHandler(object):
+class PermissionHandler:
     """
     Abstract permission handler class
     """
@@ -121,7 +120,10 @@ class PermissionHandler(object):
         set
             A set instance of app_label
         """
-        get_app_label = lambda x: x.split(".", 1)[0]
+
+        def get_app_label(x):
+            return x.split(".", 1)[0]
+
         if not hasattr(self, "_app_labels_cache"):
             perms = self.get_supported_permissions()
             self._app_labels_cache = set([get_app_label(x) for x in perms])
@@ -150,11 +152,8 @@ class PermissionHandler(object):
             Sub class must override this method.
         """
         raise NotImplementedError(
-            (
-                "'%s' does not override `has_perm(user_obj, perm, obj=None)` "
-                "method. Sub class must override this method."
-            )
-            % self.__class__
+            f"'{self.__class__}' does not override `has_perm(user_obj, perm, obj=None)` "
+            "method. Sub class must override this method."
         )
 
     def has_module_perms(self, user_obj, app_label):
@@ -174,7 +173,7 @@ class PermissionHandler(object):
             Whether the specified user have any permissions of specified app
 
         """
-        cache_name = "_has_module_perms_%s_%s_cache" % (app_label, user_obj.pk)
+        cache_name = f"_has_module_perms_{app_label}_{user_obj.pk}_cache"
         if hasattr(self, cache_name):
             return getattr(self, cache_name)
         if self.app_label != app_label:
@@ -208,10 +207,8 @@ class LogicalPermissionHandler(PermissionHandler):
         """
         # logical permission handler cannot treat application level permission
         if isinstance(model, str):
-            raise AttributeError(
-                ("'%s' cannot treat application level permission.") % self.__class__
-            )
-        super(LogicalPermissionHandler, self).__init__(model)
+            raise AttributeError(f"'{self.__class__}' cannot treat application level permission.")
+        super().__init__(model)
 
     def has_perm(self, user_obj, perm, obj=None):
         """
@@ -242,7 +239,7 @@ class LogicalPermissionHandler(PermissionHandler):
         if not hasattr(user_obj, CACHE_NAME):
             setattr(user_obj, CACHE_NAME, {})
         cache = getattr(user_obj, CACHE_NAME)
-        cachekey = "%s %s" % (perm, hash(obj))
+        cachekey = f"{perm} {hash(obj)}"
         if cachekey not in cache:
             cache[cachekey] = self._has_perm(user_obj, perm, obj)
         return cache[cachekey]

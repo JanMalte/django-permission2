@@ -20,12 +20,8 @@ class Article(models.Model):
         related_name="permission_test_articles_editor",
         on_delete=models.CASCADE,
     )
-    authors = models.ManyToManyField(
-        AUTH_USER, related_name="permission_test_articles_authors"
-    )
-    editors = models.ManyToManyField(
-        AUTH_USER, related_name="permission_test_articles_editors"
-    )
+    authors = models.ManyToManyField(AUTH_USER, related_name="permission_test_articles_authors")
+    editors = models.ManyToManyField(AUTH_USER, related_name="permission_test_articles_editors")
 
     single_bridge = models.ForeignKey(
         "permission.Bridge",
@@ -33,9 +29,7 @@ class Article(models.Model):
         related_name="permission_test_single_bridge",
         on_delete=models.CASCADE,
     )
-    multiple_bridge = models.ManyToManyField(
-        "permission.Bridge", related_name="permission_test_multiple_bridge"
-    )
+    multiple_bridge = models.ManyToManyField("permission.Bridge", related_name="permission_test_multiple_bridge")
 
     created_at = models.DateTimeField("created_at", auto_now_add=True)
 
@@ -53,9 +47,7 @@ class Bridge(models.Model):
         related_name="permission_test_bridge_author",
         on_delete=models.CASCADE,
     )
-    editors = models.ManyToManyField(
-        AUTH_USER, related_name="permission_test_bridge_editors"
-    )
+    editors = models.ManyToManyField(AUTH_USER, related_name="permission_test_bridge_editors")
 
     class Meta:
         app_label = "permission"

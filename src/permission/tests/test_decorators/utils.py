@@ -1,5 +1,3 @@
-# coding=utf-8
-from django.db.models import Model
 from django.http import HttpRequest, HttpResponse
 
 from permission.handlers import PermissionHandler
@@ -23,9 +21,7 @@ def create_mock_handler():
             ],
         }
     )
-    handler = create_mock_class(
-        "MockPermissionHandler", base=PermissionHandler, instance=instance
-    )
+    handler = create_mock_class("MockPermissionHandler", base=PermissionHandler, instance=instance)
     return handler
 
 
@@ -58,7 +54,7 @@ def create_mock_view_class(view_func):
 
 
 def create_mock_model():
-    instance = MagicMock()
+    MagicMock()
     model = MagicMock(name="MockModel")
     model.__bases__ = (type,)
     model.__class__ = type
@@ -87,7 +83,7 @@ def create_mock_queryset(obj):
         spec=QuerySet,
         **{
             "get.side_effect": get_side_effect,
-        }
+        },
     )
     queryset.model = MagicMock()
     queryset.model.DoesNotEixst = ObjectDoesNotExist

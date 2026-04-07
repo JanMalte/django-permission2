@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.test import TestCase
 
 from ...handlers import LogicalPermissionHandler
@@ -43,9 +42,7 @@ class PermissionUtilsLogicsTestCase(TestCase):
         # but after add permission logic, they will be appeared
         add_permission_logic(Article, m)
         self.assertEqual(Article._permission_logics, set([m]))
-        self.assertTrue(
-            isinstance(registry._registry[Article], LogicalPermissionHandler)
-        )
+        self.assertTrue(isinstance(registry._registry[Article], LogicalPermissionHandler))
 
     def test_remove_permission_logic_private_attributes(self):
         m = self.mock_logic
@@ -62,17 +59,13 @@ class PermissionUtilsLogicsTestCase(TestCase):
         m = self.mock_logic
         add_permission_logic(Article, m)
         self.assertEqual(Article._permission_logics, set([m]))
-        self.assertTrue(
-            isinstance(registry._registry[Article], LogicalPermissionHandler)
-        )
+        self.assertTrue(isinstance(registry._registry[Article], LogicalPermissionHandler))
 
         # permission_logics should be changed but registry
         # should not be changed
         remove_permission_logic(Article, m)
         self.assertEqual(Article._permission_logics, set())
-        self.assertTrue(
-            isinstance(registry._registry[Article], LogicalPermissionHandler)
-        )
+        self.assertTrue(isinstance(registry._registry[Article], LogicalPermissionHandler))
 
     def test_remove_permission_logic_registry_with_class(self):
         m = self.mock_logic
@@ -80,17 +73,13 @@ class PermissionUtilsLogicsTestCase(TestCase):
         add_permission_logic(Article, m)
         add_permission_logic(Article, m2)
         self.assertEqual(Article._permission_logics, set([m, m2]))
-        self.assertTrue(
-            isinstance(registry._registry[Article], LogicalPermissionHandler)
-        )
+        self.assertTrue(isinstance(registry._registry[Article], LogicalPermissionHandler))
 
         # permission_logics should be changed but registry
         # should not be changed
         remove_permission_logic(Article, PermissionLogic)
         self.assertEqual(Article._permission_logics, set())
-        self.assertTrue(
-            isinstance(registry._registry[Article], LogicalPermissionHandler)
-        )
+        self.assertTrue(isinstance(registry._registry[Article], LogicalPermissionHandler))
 
     def test_remove_permission_logic_exception(self):
         m = self.mock_logic
@@ -99,6 +88,4 @@ class PermissionUtilsLogicsTestCase(TestCase):
         # it should not raise exception
         remove_permission_logic(Article, m)
         # it should raise exception if fail_silently is False
-        self.assertRaises(
-            KeyError, remove_permission_logic, Article, m, fail_silently=False
-        )
+        self.assertRaises(KeyError, remove_permission_logic, Article, m, fail_silently=False)

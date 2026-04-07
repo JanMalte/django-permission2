@@ -1,10 +1,8 @@
-# coding=utf-8
 try:
     from unittest.mock import MagicMock
 except ImportError:
-    from mock import MagicMock
+    pass
 
-from django.test import override_settings
 
 try:
     from unittest import skipIf
@@ -29,9 +27,9 @@ settings.TESTING = False
 
 class TestRunner(TestRunnerBase):
     def setup_test_environment(self, **kwargs):
-        super(TestRunner, self).setup_test_environment(**kwargs)
+        super().setup_test_environment(**kwargs)
         settings.TESTING = True
 
     def teardown_test_environment(self, **kwargs):
-        super(TestRunner, self).teardown_test_environment(**kwargs)
+        super().teardown_test_environment(**kwargs)
         settings.TESTING = False

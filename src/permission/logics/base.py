@@ -1,7 +1,4 @@
-# coding=utf-8
-
-
-class PermissionLogic(object):
+class PermissionLogic:
     """
     Abstract permission logic class
     """
@@ -18,7 +15,7 @@ class PermissionLogic(object):
             )
         app_label = self.model._meta.app_label
         model_name = self.model._meta.object_name.lower()
-        return "%s.%s_%s" % (app_label, perm, model_name)
+        return f"{app_label}.{perm}_{model_name}"
 
     def has_perm(self, user_obj, perm, obj=None):
         """

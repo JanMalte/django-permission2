@@ -1,12 +1,9 @@
-# coding=utf-8
 """
 django-permission2 application configure
 """
+
 from appconf import AppConf
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
-
-from permission.handlers import LogicalPermissionHandler
 
 __all__ = ("settings",)
 

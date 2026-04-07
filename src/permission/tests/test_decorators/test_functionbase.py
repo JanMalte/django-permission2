@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 
@@ -22,9 +21,7 @@ class PermissionFunctionDecoratorsTestCase(TestCase):
         self.queryset = create_mock_queryset(self.model_instance)
         self.view_func = create_mock_view_func()
         self.decorated = permission_required("permission.add_article")(self.view_func)
-        self.decorated_exc = permission_required(
-            "permission.add_article", raise_exception=True
-        )(self.view_func)
+        self.decorated_exc = permission_required("permission.add_article", raise_exception=True)(self.view_func)
 
         # store original registry
         self._original_registry = registry._registry

@@ -1,4 +1,3 @@
-from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest
 from django.test import TestCase
 
@@ -7,14 +6,11 @@ from ...decorators.classbase import permission_required as c
 from ...decorators.functionbase import permission_required as f
 from ...decorators.methodbase import permission_required as m
 from ...utils.handlers import registry
-from ..compat import MagicMock
 from .utils import (
     create_mock_handler,
     create_mock_model,
     create_mock_queryset,
     create_mock_request,
-    create_mock_view_class,
-    create_mock_view_func,
 )
 
 p = p("permission.add_article")
@@ -78,7 +74,6 @@ class PermissionDecoratorsTestCase(TestCase):
         function_view(self.request, self.queryset, object_id=1)
 
     def test_method_views(self):
-        view_method = View.dispatch
 
         # class decorator cannot handle
         self.assertRaises(AttributeError, c, View.dispatch)
@@ -101,7 +96,7 @@ class PermissionDecoratorsTestCase(TestCase):
         self.assertFalse(hasattr(method_view, "as_view"))
 
         # function decorator cannot handle
-        function_view = f(View)
+        f(View)
         self.assertFalse(hasattr(method_view, "as_view"))
 
     def test_permission_required(self):

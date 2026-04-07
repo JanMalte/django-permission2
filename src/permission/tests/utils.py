@@ -1,12 +1,9 @@
-# coding=utf-8
-
-
 def create_user(username, **kwargs):
     from django.contrib.auth.models import User
 
     user = User.objects.create_user(
         username=username,
-        email="%s@test.com" % username,
+        email=f"{username}@test.com",
         password="password",
     )
     # attribute assignment
@@ -39,9 +36,7 @@ def create_article(title, user=None, bridge=None):
     from permission.tests.models import Article
 
     user = user or create_user(str(datetime.datetime.now()))
-    article = Article.objects.create(
-        title=title, content=title * 20, author=user, single_bridge=bridge
-    )
+    article = Article.objects.create(title=title, content=title * 20, author=user, single_bridge=bridge)
     article.save()
     return article
 
@@ -52,9 +47,7 @@ def create_bridge(user=None, editors=None):
     from permission.tests.models import Bridge
 
     user = user or create_user(str(datetime.datetime.now()))
-    editors = editors or [
-        create_user(str(datetime.datetime.now()) + str(i)) for i in range(2)
-    ]
+    editors = editors or [create_user(str(datetime.datetime.now()) + str(i)) for i in range(2)]
     bridge = Bridge.objects.create(author=user)
     for editor in editors:
         bridge.editors.add(editor)

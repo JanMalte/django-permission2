@@ -4,7 +4,6 @@ from django.test import TestCase, override_settings
 from ..backends import PermissionBackend
 from ..utils.handlers import registry
 from .compat import MagicMock
-from .models import Article
 from .utils import create_article, create_user
 
 
@@ -27,7 +26,7 @@ class PermissionPermissionBackendTestCase(TestCase):
         registry.get_handlers = self.original_get_handlers
 
     def test_constructor(self):
-        backend = PermissionBackend()
+        PermissionBackend()
 
     def test_authenticate(self):
         backend = PermissionBackend()
@@ -149,9 +148,7 @@ class PermissionPermissionBackendTestCase(TestCase):
         )
 
         backend = PermissionBackend()
-        self.assertRaises(
-            ObjectDoesNotExist, backend.has_perm, None, "permissions.nil_permission"
-        )
+        self.assertRaises(ObjectDoesNotExist, backend.has_perm, None, "permissions.nil_permission")
 
     @override_settings(
         PERMISSION_CHECK_PERMISSION_PRESENCE=False,
@@ -171,16 +168,9 @@ class PermissionPermissionBackendTestCase(TestCase):
         ),
     )
     def test_has_perm_with_nil_permission_raise_with_user(self):
-        self.assertRaises(
-            ObjectDoesNotExist, self.user.has_perm, "permissions.nil_permission"
-        )
+        self.assertRaises(ObjectDoesNotExist, self.user.has_perm, "permissions.nil_permission")
 
     def test_has_module_perms(self):
-        perms = [
-            "permission.add_article",
-            "permission.change_article",
-            "permission.delete_article",
-        ]
         app_labels = ["permission"]
         registry.get_handlers = MagicMock(
             return_value=[

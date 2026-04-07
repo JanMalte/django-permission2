@@ -1,6 +1,9 @@
 import importlib.metadata
 
-__version__ = importlib.metadata.version("django-permission2")
+try:
+    __version__ = importlib.metadata.version("django-permission2")
+except importlib.metadata.PackageNotFoundError:
+    __version__ = "0.0.1"
 
 from django.core.exceptions import ImproperlyConfigured
 
@@ -14,10 +17,7 @@ from permission.utils.logics import add_permission_logic, remove_permission_logi
 
 if "permission" in settings.INSTALLED_APPS:
     if settings.PERMISSION_CHECK_AUTHENTICATION_BACKENDS:
-        if (
-            "permission.backends.PermissionBackend"
-            not in settings.AUTHENTICATION_BACKENDS
-        ):
+        if "permission.backends.PermissionBackend" not in settings.AUTHENTICATION_BACKENDS:
             raise ImproperlyConfigured(
                 '"permission.backends.PermissionBackend" is not found in '
                 "`AUTHENTICATION_BACKENDS`.\n"
@@ -55,4 +55,3 @@ if "permission" in settings.INSTALLED_APPS:
                 )
 
 # Django Application
-default_app_config = "permission.apps.PermissionConfig"

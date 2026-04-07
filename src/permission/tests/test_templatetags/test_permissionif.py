@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.template import Context, Template
 from django.test import TestCase, override_settings
 
@@ -127,12 +126,8 @@ class PermissionTemplateTagsTestCase(TestCase):
         registry.register(Article, ArticlePermissionHandler)
 
         self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1"))
-        self.assertFalse(
-            user.has_perm("permission.permission_templatetag_test_perm1", art1)
-        )
-        self.assertTrue(
-            user.has_perm("permission.permission_templatetag_test_perm1", art2)
-        )
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1", art1))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1", art2))
 
         context = Context(
             {
@@ -315,11 +310,7 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         )
 
         out = Template(
-            "{% permission user has 'permission.unknown_permission' %}"
-            "Fail"
-            "{% else %}"
-            "Success"
-            "{% endpermission %}"
+            "{% permission user has 'permission.unknown_permission' %}Fail{% else %}Success{% endpermission %}"
         ).render(context)
 
         self.assertEqual(out, "Success")
@@ -343,12 +334,8 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         registry.register(Article, ArticlePermissionHandler)
 
         self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1"))
-        self.assertFalse(
-            user.has_perm("permission.permission_templatetag_test_perm1", art1)
-        )
-        self.assertTrue(
-            user.has_perm("permission.permission_templatetag_test_perm1", art2)
-        )
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1", art1))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1", art2))
 
         context = Context(
             {
@@ -453,11 +440,7 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         )
 
         out = Template(
-            "{% if user has 'permission.permission_templatetag_test_perm1' %}"
-            "Success"
-            "{% else %}"
-            "Fail"
-            "{% endif %}"
+            "{% if user has 'permission.permission_templatetag_test_perm1' %}Success{% else %}Fail{% endif %}"
         ).render(context)
 
         self.assertEqual(out, "Success")
@@ -505,13 +488,9 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
             }
         )
 
-        out = Template(
-            "{% if user has 'permission.unknown_permission' %}"
-            "Fail"
-            "{% else %}"
-            "Success"
-            "{% endif %}"
-        ).render(context)
+        out = Template("{% if user has 'permission.unknown_permission' %}Fail{% else %}Success{% endif %}").render(
+            context
+        )
 
         self.assertEqual(out, "Success")
 
@@ -534,12 +513,8 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
         registry.register(Article, ArticlePermissionHandler)
 
         self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1"))
-        self.assertFalse(
-            user.has_perm("permission.permission_templatetag_test_perm1", art1)
-        )
-        self.assertTrue(
-            user.has_perm("permission.permission_templatetag_test_perm1", art2)
-        )
+        self.assertFalse(user.has_perm("permission.permission_templatetag_test_perm1", art1))
+        self.assertTrue(user.has_perm("permission.permission_templatetag_test_perm1", art2))
 
         context = Context(
             {

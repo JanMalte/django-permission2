@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: check-added-large-files
       - id: check-ast
@@ -20,6 +20,12 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
 
+  - repo: https://github.com/adamchainz/django-upgrade
+    rev: "1.30.0"
+    hooks:
+      - id: django-upgrade
+        args: [--target-version, "6.0"]
+
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v3.1.0
     hooks:
@@ -27,18 +33,17 @@ repos:
 
   - repo: local
     hooks:
-      - id: black
-        name: black
-        stages: [commit]
+      - id: ruff-check
+        name: ruff-check
+        stages: [pre-commit]
         language: system
-        entry: poetry run black
+        entry: poetry run ruff check
+        args: [--fix, --unsafe-fixes]
         types: [python]
 
-      # run isort from project pipenv to fix third party detection
-      - id: isort
-        name: isort
-        stages: [commit]
+      - id: ruff-format
+        name: ruff-format
+        stages: [pre-commit]
         language: system
-        entry: poetry run isort
-        args: ["--profile", "black"]
+        entry: poetry run ruff format
         types: [python]

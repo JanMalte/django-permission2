@@ -1,7 +1,7 @@
-# coding=utf-8
 """
 Logical permission backends module
 """
+
 from permission.conf import settings
 from permission.utils.handlers import registry
 from permission.utils.permissions import perm_to_permission
@@ -9,7 +9,7 @@ from permission.utils.permissions import perm_to_permission
 __all__ = ("PermissionBackend",)
 
 
-class PermissionBackend(object):
+class PermissionBackend:
     """
     A handler based permission backend
     """
@@ -66,15 +66,11 @@ class PermissionBackend(object):
                 pass
 
         # get permission handlers fot this perm
-        cache_name = "_%s_cache" % perm
+        cache_name = f"_{perm}_cache"
         if hasattr(self, cache_name):
             handlers = getattr(self, cache_name)
         else:
-            handlers = [
-                h
-                for h in registry.get_handlers()
-                if perm in h.get_supported_permissions()
-            ]
+            handlers = [h for h in registry.get_handlers() if perm in h.get_supported_permissions()]
             setattr(self, cache_name, handlers)
         for handler in handlers:
             if handler.has_perm(user_obj, perm, obj=obj):
@@ -111,15 +107,11 @@ class PermissionBackend(object):
             module.
         """
         # get permission handlers fot this perm
-        cache_name = "_%s_cache" % app_label
+        cache_name = f"_{app_label}_cache"
         if hasattr(self, cache_name):
             handlers = getattr(self, cache_name)
         else:
-            handlers = [
-                h
-                for h in registry.get_handlers()
-                if app_label in h.get_supported_app_labels()
-            ]
+            handlers = [h for h in registry.get_handlers() if app_label in h.get_supported_app_labels()]
             setattr(self, cache_name, handlers)
         for handler in handlers:
             if handler.has_module_perms(user_obj, app_label):

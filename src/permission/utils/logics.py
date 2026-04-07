@@ -1,8 +1,6 @@
-# coding=utf-8
 """
 Permission logic utilities
 """
-from __future__ import unicode_literals
 
 from permission.logics import PermissionLogic
 
@@ -29,9 +27,7 @@ def add_permission_logic(model, permission_logic):
     >>> add_permission_logic(Mock, PermissionLogic())
     """
     if not isinstance(permission_logic, PermissionLogic):
-        raise AttributeError(
-            "`permission_logic` must be an instance of PermissionLogic"
-        )
+        raise AttributeError("`permission_logic` must be an instance of PermissionLogic")
     if not hasattr(model, "_permission_logics"):
         model._permission_logics = set()
     if not hasattr(model, "_permission_handler"):

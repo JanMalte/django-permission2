@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # django-permission2 documentation build configuration file, created by
 # sphinx-quickstart on Tue Jan 14 03:12:35 2014.
@@ -56,7 +55,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "django-permission2"
-copyright = "2022, Malte Gerth <mail@malte-gerth.de>"
+copyright = "2026, Malte Gerth <mail@malte-gerth.de>"
 author = "Malte Gerth"
 
 # The version info for the project you're documenting, acts as replacement for
@@ -284,7 +283,7 @@ texinfo_documents = [
 epub_title = "django-permission2"
 epub_author = "Malte Gerth <mail@malte-gerth.de>"
 epub_publisher = "Malte Gerth <mail@malte-gerth.de>"
-epub_copyright = "2022, Malte Gerth <mail@malte-gerth.de>"
+epub_copyright = "2026, Malte Gerth <mail@malte-gerth.de>"
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

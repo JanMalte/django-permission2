@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.test import TestCase, override_settings
 
 from ..handlers import LogicalPermissionHandler, PermissionHandler
@@ -265,21 +264,15 @@ class PermissionPermissionHandlersTestCase(TestCase):
 
     def test_has_perm_add_wiht_obj(self):
         instance = self.handler(Article)
-        self.assertRaises(
-            NotImplementedError, instance.has_perm, self.user, self.perm1, self.article
-        )
+        self.assertRaises(NotImplementedError, instance.has_perm, self.user, self.perm1, self.article)
 
     def test_has_perm_change_wiht_obj(self):
         instance = self.handler(Article)
-        self.assertRaises(
-            NotImplementedError, instance.has_perm, self.user, self.perm2, self.article
-        )
+        self.assertRaises(NotImplementedError, instance.has_perm, self.user, self.perm2, self.article)
 
     def test_has_perm_delete_wiht_obj(self):
         instance = self.handler(Article)
-        self.assertRaises(
-            NotImplementedError, instance.has_perm, self.user, self.perm3, self.article
-        )
+        self.assertRaises(NotImplementedError, instance.has_perm, self.user, self.perm3, self.article)
 
     def test_has_module_perms_success(self):
         instance = self.handler(Article)

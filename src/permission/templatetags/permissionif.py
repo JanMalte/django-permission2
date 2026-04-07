@@ -1,7 +1,7 @@
-# vim: set fileencoding=utf-8 :
 """
 permissionif templatetag
 """
+
 from django import template
 from django.template import TemplateSyntaxError
 from django.template.defaulttags import IfNode, TemplateLiteral
@@ -67,7 +67,7 @@ class TemplatePermissionIfParser(PermissionIfParser):
 
     def __init__(self, parser, *args, **kwargs):
         self.template_parser = parser
-        super(TemplatePermissionIfParser, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def create_var(self, value):
         return TemplateLiteral(self.template_parser.compile_filter(value), value)
@@ -97,9 +97,9 @@ def do_permissionif(parser, token):
 
     """
     bits = token.split_contents()
-    ELIF = "el%s" % bits[0]
+    ELIF = f"el{bits[0]}"
     ELSE = "else"
-    ENDIF = "end%s" % bits[0]
+    ENDIF = f"end{bits[0]}"
 
     # {% if ... %}
     bits = bits[1:]

@@ -1,6 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 from django.apps import apps
 
 
@@ -59,7 +56,7 @@ def discover(app, module_name=None):
     module_name = module_name or settings.PERMISSION_AUTODISCOVER_MODULE_NAME
 
     # import the module
-    m = import_module("%s.%s" % (app, module_name))
+    m = import_module(f"{app}.{module_name}")
 
     # check if the module have PERMISSION_LOGICS variable
     if hasattr(m, variable_name):
