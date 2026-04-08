@@ -1,8 +1,8 @@
 from django.test import TestCase, override_settings
 
-from ... import add_permission_logic
-from ...logics import OneselfPermissionLogic
-from ..utils import create_anonymous, create_user
+from permission import add_permission_logic
+from permission.logics import OneselfPermissionLogic
+from tests.utils import create_anonymous, create_user
 
 
 @override_settings(

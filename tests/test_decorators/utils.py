@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 
 from permission.handlers import PermissionHandler
-from permission.tests.compat import MagicMock
+from tests.compat import MagicMock
 
 
 def create_mock_class(name, base, instance=None):

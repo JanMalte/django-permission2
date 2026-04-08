@@ -33,7 +33,7 @@ def create_group(name, user=None):
 def create_article(title, user=None, bridge=None):
     import datetime
 
-    from permission.tests.models import Article
+    from tests.models import Article
 
     user = user or create_user(str(datetime.datetime.now()))
     article = Article.objects.create(title=title, content=title * 20, author=user, single_bridge=bridge)
@@ -44,7 +44,7 @@ def create_article(title, user=None, bridge=None):
 def create_bridge(user=None, editors=None):
     import datetime
 
-    from permission.tests.models import Bridge
+    from tests.models import Bridge
 
     user = user or create_user(str(datetime.datetime.now()))
     editors = editors or [create_user(str(datetime.datetime.now()) + str(i)) for i in range(2)]
@@ -59,7 +59,7 @@ def create_permission(name, model=None):
     from django.contrib.auth.models import Permission
     from django.contrib.contenttypes.models import ContentType
 
-    from permission.tests.models import Article
+    from tests.models import Article
 
     model = model or Article
     ct = ContentType.objects.get_for_model(model)

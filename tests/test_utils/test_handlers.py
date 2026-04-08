@@ -1,8 +1,8 @@
 from django.test import TestCase, override_settings
 
-from ...handlers import PermissionHandler
-from ...utils.handlers import PermissionHandlerRegistry
-from ..compat import MagicMock
+from permission.handlers import PermissionHandler
+from permission.utils.handlers import PermissionHandlerRegistry
+from tests.compat import MagicMock
 
 
 @override_settings(PERMISSION_DEFAULT_PERMISSION_HANDLER=PermissionHandler)
