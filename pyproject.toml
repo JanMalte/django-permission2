@@ -4,7 +4,7 @@ requires = [ "poetry-core>=1" ]
 
 [project]
 name = "django-permission2"
-version = "2.1.0"
+version = "2.2.0"
 description = "A simple permission system which enable logical permission systems in Django"
 readme = "README.rst"
 keywords = [ "django", "logical", "object", "permission" ]
