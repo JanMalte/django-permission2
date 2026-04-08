@@ -51,3 +51,6 @@ class Bridge(models.Model):
 
     class Meta:
         app_label = "permission"
+
+    def __str__(self):
+        return f"Bridge(pk={self.pk})"

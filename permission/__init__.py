@@ -10,10 +10,11 @@ from django.core.exceptions import ImproperlyConfigured
 from permission.conf import settings
 
 # autodiscover
-from permission.utils.autodiscover import autodiscover
+from permission.utils.autodiscover import autodiscover as autodiscover
 
 # load shortcut functions
-from permission.utils.logics import add_permission_logic, remove_permission_logic
+from permission.utils.logics import add_permission_logic as add_permission_logic
+from permission.utils.logics import remove_permission_logic as remove_permission_logic
 
 if "permission" in settings.INSTALLED_APPS:
     if settings.PERMISSION_CHECK_AUTHENTICATION_BACKENDS:

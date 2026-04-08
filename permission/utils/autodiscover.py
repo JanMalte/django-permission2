@@ -21,7 +21,7 @@ def autodiscover(module_name=None):
         try:
             # discover the permission module
             discover(app, module_name=module_name)
-        except:
+        except Exception:
             # Decide whether to bubble up this error. If the app just doesn't
             # have an perms module, we can just ignore the error attempting
             # to import it, otherwise we want it to bubble up.

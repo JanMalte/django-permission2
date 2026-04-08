@@ -1,1 +1,1 @@
-from permission.decorators.permission_required import permission_required
+from permission.decorators.permission_required import permission_required as permission_required

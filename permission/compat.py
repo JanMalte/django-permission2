@@ -1,3 +1,5 @@
+from urllib.parse import urlparse as urlparse
+
 add_to_builtins = None
 
 try:
@@ -40,14 +42,6 @@ except ImportError:
                 return getattr(module, class_name)
             except AttributeError:
                 raise ImportError(f'Module "{module_path}" does not define a "{class_name}" attribute/class')
-
-
-try:
-    # Python 3
-    from urllib.parse import urlparse
-except ImportError:
-    # Python 2
-    pass
 
 
 def isstr(x):
