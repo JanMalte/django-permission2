@@ -1,9 +1,9 @@
 from django.test import TestCase, override_settings
 
-from ..handlers import LogicalPermissionHandler, PermissionHandler
-from .compat import MagicMock
-from .models import Article
-from .utils import create_article, create_user
+from permission.handlers import LogicalPermissionHandler, PermissionHandler
+from tests.compat import MagicMock
+from tests.models import Article
+from tests.utils import create_article, create_user
 
 
 @override_settings(PERMISSION_DEFAULT_PERMISSION_HANDLER=PermissionHandler)

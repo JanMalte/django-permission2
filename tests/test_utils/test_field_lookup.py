@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from ...utils.field_lookup import field_lookup
-from ..utils import create_article, create_bridge, create_user
+from permission.utils.field_lookup import field_lookup
+from tests.utils import create_article, create_bridge, create_user
 
 
 class PermissionUtilsFieldLookupTestCase(TestCase):

@@ -24,7 +24,7 @@ poetry install
 You can run the tests using the current installed python and django version using
 
 ```shell
-poetry run python manage.py test src/
+poetry run python manage.py test tests/
 ```
 
 Running a complete test suite against all supported python and django versions is possible using `tox`
@@ -40,7 +40,7 @@ poetry run tox -e py310-django42
 To get the coverage report use the following commands
 
 ```shell
-poetry run coverage run --append --source=src/permission manage.py test permission
+poetry run coverage run --append --source=permission manage.py test tests
 poetry run coverage report
 ```
 

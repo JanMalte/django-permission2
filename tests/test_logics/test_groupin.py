@@ -1,8 +1,8 @@
 from django.test import TestCase, override_settings
 
-from ...logics import GroupInPermissionLogic
-from ...utils.logics import add_permission_logic
-from ..utils import create_anonymous, create_article, create_group, create_user
+from permission.logics import GroupInPermissionLogic
+from permission.utils.logics import add_permission_logic
+from tests.utils import create_anonymous, create_article, create_group, create_user
 
 
 @override_settings(

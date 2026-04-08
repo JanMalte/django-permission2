@@ -37,7 +37,7 @@ classifiers = [
 ]
 keywords = ["django","object","logical","permission"]
 packages = [
-    { include = "permission", from = "src" },
+    { include = "permission" },
 ]
 
 [tool.poetry.dependencies]
@@ -72,7 +72,7 @@ ignore = ["D212", "D203"]
 
 [tool.coverage.run]
 branch = true
-source = ["src/permission/", "tests/"]
+source = ["permission/", "tests/"]
 
 [tool.coverage.report]
 show_missing = true

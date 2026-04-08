@@ -1,7 +1,7 @@
 from django.test import TestCase
 
-from ...logics import PermissionLogic
-from ..utils import create_article, create_user
+from permission.logics import PermissionLogic
+from tests.utils import create_article, create_user
 
 
 class PermissionLogicsPermissionLogicTestCase(TestCase):

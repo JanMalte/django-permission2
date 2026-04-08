@@ -1,9 +1,10 @@
 from django.core.exceptions import PermissionDenied
 from django.test import TestCase
 
-from ...decorators.methodbase import permission_required
-from ...utils.handlers import registry
-from ..compat import MagicMock
+from permission.decorators.methodbase import permission_required
+from permission.utils.handlers import registry
+from tests.compat import MagicMock
+
 from .utils import (
     create_mock_handler,
     create_mock_model,

@@ -24,7 +24,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tests.appconfig.apps.AppConfigConfig",
     "permission",
-    "permission.tests",
+    "tests",
 ]
 
 MIDDLEWARE = [
@@ -65,6 +65,7 @@ DATABASES = {
         "NAME": ":memory:",
     }
 }
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

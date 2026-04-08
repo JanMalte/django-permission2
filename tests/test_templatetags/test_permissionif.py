@@ -1,9 +1,9 @@
 from django.template import Context, Template
 from django.test import TestCase, override_settings
 
-from ...templatetags.permissionif import replace_builtin_if
-from ...utils.handlers import registry
-from ..utils import create_article, create_permission, create_user
+from permission.templatetags.permissionif import replace_builtin_if
+from permission.utils.handlers import registry
+from tests.utils import create_article, create_permission, create_user
 
 
 @override_settings(
@@ -109,7 +109,7 @@ class PermissionTemplateTagsTestCase(TestCase):
 
     def test_permissionif_tag_with_obj(self):
         from permission.handlers import PermissionHandler
-        from permission.tests.models import Article
+        from tests.models import Article
 
         user = create_user("permission_templatetag_test_user1")
         art1 = create_article("permission_templatetag_test_article1")
@@ -317,7 +317,7 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
 
     def test_permissionif_tag_with_obj(self):
         from permission.handlers import PermissionHandler
-        from permission.tests.models import Article
+        from tests.models import Article
 
         user = create_user("permission_templatetag_test_user1")
         art1 = create_article("permission_templatetag_test_article1")
@@ -496,7 +496,7 @@ class PermissionTemplateTagsWithBuiltinTestCase(TestCase):
 
     def test_if_tag_with_obj(self):
         from permission.handlers import PermissionHandler
-        from permission.tests.models import Article
+        from tests.models import Article
 
         user = create_user("permission_templatetag_test_user1")
         art1 = create_article("permission_templatetag_test_article1")

@@ -1,10 +1,10 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.test import TestCase, override_settings
 
-from ..backends import PermissionBackend
-from ..utils.handlers import registry
-from .compat import MagicMock
-from .utils import create_article, create_user
+from permission.backends import PermissionBackend
+from permission.utils.handlers import registry
+from tests.compat import MagicMock
+from tests.utils import create_article, create_user
 
 
 @override_settings(

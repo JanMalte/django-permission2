@@ -1,11 +1,12 @@
 from django.http import HttpRequest
 from django.test import TestCase
 
-from ...decorators import permission_required as p
-from ...decorators.classbase import permission_required as c
-from ...decorators.functionbase import permission_required as f
-from ...decorators.methodbase import permission_required as m
-from ...utils.handlers import registry
+from permission.decorators import permission_required as p
+from permission.decorators.classbase import permission_required as c
+from permission.decorators.functionbase import permission_required as f
+from permission.decorators.methodbase import permission_required as m
+from permission.utils.handlers import registry
+
 from .utils import (
     create_mock_handler,
     create_mock_model,
