@@ -6,6 +6,7 @@
     utils
     backends
     handlers
+    mixins
     conf
     compat
 

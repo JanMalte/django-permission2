@@ -10,6 +10,7 @@
    user/perms
    user/decorators
    user/templatetags
+   user/admin
    user/license
 
 .. toctree::
