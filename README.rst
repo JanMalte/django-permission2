@@ -27,9 +27,9 @@ Author
 Original Author
     Alisue <lambdalisue@hashnote.net>
 Supported python versions
-    Python 3.8, 3.9, 3.10, 3.11
+    Python 3.10, 3.11, 3.12, 3.13, 3.14
 Supported django versions
-    Django 2.2, 3.2, 4.0, 4.1, 4.2
+    Django 4.2, 5.2, 6.0
 
 An enhanced permission library which enables a *logic-based permission system*
 to handle complex permissions in Django.
@@ -186,7 +186,7 @@ License
 -------------------------------------------------------------------------------
 The MIT License (MIT)
 
-Copyright (c) 2022 Malte Gerth <mail@malte-gerth.de>
+Copyright (c) 2026 Malte Gerth <mail@malte-gerth.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
