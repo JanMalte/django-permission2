@@ -8,7 +8,7 @@ build:
     - asdf plugin add poetry
     - asdf install poetry latest
     - asdf global poetry latest
-    - poetry install --extras docs
+    - poetry install --only main,docs
     - poetry run python -m sphinx -b html -d docs/_build/doctrees docs $READTHEDOCS_OUTPUT/html
 
 formats: all

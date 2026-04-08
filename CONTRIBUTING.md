@@ -10,7 +10,7 @@ Once that's installed, create your virtualenv:
 ```shell
 pyenv install --skip-existing
 poetry env use $(pyenv which python)
-poetry install --extras=docs
+poetry install --with docs
 ```
 
 ## Install development tools
@@ -47,7 +47,7 @@ poetry run coverage report
 ## Generate the docs
 
 ```shell
-poetry install --extras docs
+poetry install --with docs
 cd docs/
 make clean
 make html
