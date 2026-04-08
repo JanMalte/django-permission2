@@ -1,8 +1,4 @@
-try:
-    from unittest.mock import MagicMock
-except ImportError:
-    pass
-
+from unittest.mock import MagicMock as MagicMock
 
 try:
     from unittest import skipIf
