@@ -65,7 +65,7 @@ class PermissionBackend:
                 # Django 1.2 internally use wrong permission string thus ignore
                 pass
 
-        # get permission handlers fot this perm
+        # get permission handlers for this perm
         cache_name = f"_{perm}_cache"
         if hasattr(self, cache_name):
             handlers = getattr(self, cache_name)
@@ -106,7 +106,7 @@ class PermissionBackend:
             ``PERMISSION_CHECK_PERMISSION_PRESENCE`` is ``True`` in ``settings``
             module.
         """
-        # get permission handlers fot this perm
+        # get permission handlers for this perm
         cache_name = f"_{app_label}_cache"
         if hasattr(self, cache_name):
             handlers = getattr(self, cache_name)

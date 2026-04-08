@@ -19,7 +19,7 @@ class GroupInPermissionLogic(PermissionLogic):
         add_permission=None,
         change_permission=None,
         delete_permission=None,
-    ):  # noqa
+    ):
         """
         Constructor
 

@@ -7,7 +7,7 @@ Like Django's ``permission_required`` but it can be used for object permissions
 and as a class, method, or function decorator.
 Also, you don't need to specify a object to this decorator for object permission.
 This decorator automatically determined the object from request
-(so you cannnot use this decorator for non view class/method/function but you
+(so you cannot use this decorator for non view class/method/function but you
 anyway use ``user.has_perm`` in that case).
 
 

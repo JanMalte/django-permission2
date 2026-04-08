@@ -107,7 +107,7 @@ def _get_object_from_list_detail_view_validation(request, *args, **kwargs):
 get_object_from_list_detail_view.validate = _get_object_from_list_detail_view_validation
 
 
-def get_object_from_date_based_view(request, *args, **kwargs):  # noqa
+def get_object_from_date_based_view(request, *args, **kwargs):
     """
     Get object from generic date_based.detail view
 

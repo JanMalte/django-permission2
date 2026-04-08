@@ -19,6 +19,24 @@ poetry install --with docs
 poetry install
 ```
 
+## Pre-commit hooks
+
+This project uses [pre-commit](https://pre-commit.com/) to run linters and formatters automatically before each commit.
+Install the hooks after setting up the development environment:
+
+```shell
+poetry run pre-commit install
+```
+
+To run all hooks manually against the entire codebase:
+
+```shell
+poetry run pre-commit run --all-files
+```
+
+The hooks include Ruff (linting and formatting), django-upgrade, codespell (typo checking), pyproject-fmt, prettier, and several other checks.
+See `.pre-commit-config.yaml` for the full list.
+
 ## Run tests
 
 You can run the tests using the current installed python and django version using
@@ -40,8 +58,9 @@ poetry run tox -e py310-django42
 To get the coverage report use the following commands
 
 ```shell
-poetry run coverage run --append --source=permission manage.py test tests
+poetry run coverage run manage.py test tests
 poetry run coverage report
+poetry run coverage html
 ```
 
 ## Generate the docs
