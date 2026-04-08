@@ -56,7 +56,7 @@ make html
 ## Build package
 
 ```shell
-    poetry build
+poetry build --clean
 ```
 
 ## Bump version
@@ -64,6 +64,8 @@ make html
 ```shell
 poetry version prerelease
 poetry version patch
+poetry version minor
+poetry version major
 ```
 
 ## Poetry Publish
