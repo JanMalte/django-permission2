@@ -1,17 +1,14 @@
 version: 2
 
 build:
-  os: ubuntu-20.04
+  os: ubuntu-24.04
   tools:
-    python: "3.8"
-
-sphinx:
-  configuration: docs/conf.py
+    python: "3.12"
+  commands:
+    - asdf plugin add poetry
+    - asdf install poetry latest
+    - asdf global poetry latest
+    - poetry install --extras docs
+    - poetry run python -m sphinx -b html -d docs/_build/doctrees docs $READTHEDOCS_OUTPUT/html
 
 formats: all
-
-python:
-  install:
-    - requirements: docs/requirements.txt
-    - method: pip
-      path: .
