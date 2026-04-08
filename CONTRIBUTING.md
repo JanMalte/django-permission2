@@ -65,6 +65,8 @@ poetry run coverage html
 
 ## Generate the docs
 
+> **Note:** Building the documentation requires Python >= 3.12.
+
 ```shell
 poetry install --with docs
 cd docs/
