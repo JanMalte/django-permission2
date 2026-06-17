@@ -44,7 +44,7 @@ repos:
       - id: check-github-workflows
 
   - repo: https://github.com/tox-dev/pyproject-fmt
-    rev: v2.24.0
+    rev: v2.24.1
     hooks:
       - id: pyproject-fmt
 
