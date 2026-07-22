@@ -53,7 +53,7 @@ dev = [
   "coverage[toml]==7.15.2",
   "pre-commit==4.5.1",
   "ruff==0.15.22",
-  "tox==4.56.4",
+  "tox==4.57.0",
 ]
 docs = [
   "sphinx==9.1; python_version>='3.12'",
